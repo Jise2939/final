@@ -247,46 +247,115 @@ to { opacity: 1; transform: translateY(0); }
 
 
 /* ==========================================
-   Spotlight 左側：大標題 + 直式圖片
+   Section 1: 採訪影片專屬排版 (完美間距與對齊)
    ========================================== */
 
-.spotlight .left-col.vertical-img-container {
-    width: 40%;
+.interview-layout {
     display: flex;
-    flex-direction: column;   /* 讓標題和圖片上下排列 */
-    justify-content: center;  /* 整個左側區塊垂直居中對齊右側 */
-    align-items: flex-start;  /* 🌟 讓標題與圖片全部靠左對齊 */
-    padding: 4em 2em 4em 4em;
+    align-items: center;       /* 讓左右垂直置中對齊 */
+    justify-content: space-between; /* 確保左右靠邊 */
+    gap: 5em;                  /* 🌟 關鍵魔法：強制在中間拉開 5em 的超大距離！ */
 }
 
-.spotlight .left-col.vertical-img-container img {
+/* 左邊文字佔比 */
+.interview-layout .text-col {
+    flex: 0 0 38%;             /* 限制文字區塊只佔 38% */
+}
+
+/* 右邊影片佔比 */
+.interview-layout .video-col {
+    flex: 0 0 55%;             /* 影片稍微大一點，佔 55% */
+}
+
+/* ==========================================
+   手機版響應式 (螢幕變小時自動變成上下排列)
+   ========================================== */
+@media screen and (max-width: 980px) {
+    .interview-layout {
+        flex-direction: column; /* 變成上下直排 */
+        gap: 3em;               /* 上下間距縮小 */
+    }
+    .interview-layout .text-col,
+    .interview-layout .video-col {
+        flex: 0 0 100%;         /* 各自佔滿 100% 寬度 */
+        width: 100%;
+    }
+}
+
+/* ==========================================
+   Spotlight 直式圖片設定 (Section 2: 左圖右文)
+   ========================================== */
+
+.spotlight .image-wrapper.vertical-img {
+    width: 40%; 
+    display: flex;
+    justify-content: center; /* 水平居中 */
+    align-items: center;     /* 垂直居中 */
+    padding: 4em 2em 4em 4em; 
+}
+
+.spotlight .image-wrapper.vertical-img img {
     max-width: 100%;
-    max-height: 70vh;         /* 高度稍微降到 70vh，把空間讓給上方的標題 */
+    max-height: 85vh;     /* 限制最大高度 */
     width: auto;
     height: auto;
-    object-fit: contain;      /* 確保照片不變形、不被裁切 */
+    object-fit: contain;  /* 確保照片不變形 */
     border-radius: 8px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.15);
 }
 
-/* 調整右側文字與影片區塊的寬度 */
-.spotlight:has(.left-col) .content {
+.spotlight:has(.vertical-img) .content {
     width: 60%; 
     padding: 5em 5em 5em 3em; 
 }
 
-/* 手機版響應式設定 (小螢幕時自動變成上下排列) */
+/* ==========================================
+   手機版響應式設定 (小螢幕時全部變成上下排列)
+   ========================================== */
 @media screen and (max-width: 980px) {
-    .spotlight .left-col.vertical-img-container {
+    /* 影片區塊手機版 */
+    .spotlight .video-wrapper.main {
         width: 100%;
-        padding: 3em 2em 1em 2em; /* 手機版微調留白 */
+        padding: 2em;
     }
-    .spotlight .left-col.vertical-img-container img {
+    .spotlight:has(.video-wrapper) .content {
+        width: 100%;
+        padding: 3em 2em;
+    }
+
+    /* 圖片區塊手機版 */
+    .spotlight .image-wrapper.vertical-img {
+        width: 100%;
+        padding: 2em;
+    }
+    .spotlight .image-wrapper.vertical-img img {
         max-height: 60vh;
-        margin-top: 1em; /* 在標題與圖片間加點距離 */
     }
-    .spotlight:has(.left-col) .content {
+    .spotlight:has(.vertical-img) .content {
         width: 100%; 
-        padding: 2em 2em 3em 2em; 
+        padding: 3em 2em; 
     }
+}
+
+
+/* ==========================================
+   3D 環形畫廊樣式
+   ========================================== */
+#gallery-section {
+    position: relative;
+    width: 100%;
+    height: 60vh; /* 佔滿整個螢幕高度 */
+    background-color: #ffffff; /* 給畫廊一個淺色背景，讓圖片更突出 */
+    overflow: hidden;
+}
+
+.circular-gallery {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    cursor: grab; /* 提示用戶可以拖曳 */
+}
+
+.circular-gallery:active {
+    cursor: grabbing; /* 拖曳中的游標狀態 */
 }

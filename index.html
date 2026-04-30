@@ -90,49 +90,80 @@
 		</section>
 					
 		
-<!-- Question 區塊 (左側標題與圖，右側導語與影片) -->
+<!-- ==========================================
+     Section 1: 採訪紀實 (左文字、右影片)
+     ========================================== -->
+<!-- ==========================================
+     Section 1: 採訪紀實 (現代排版：完美間距與對齊)
+     ========================================== -->
+<section id="interview" class="wrapper style1" style="padding-bottom: 2em;">
+    
+    <!-- 移除了 75% 限制，改用自訂最大寬度，這樣能跟下方內容對齊得更好 -->
+    <div class="container" style="max-width: 1100px;"> 
+        
+        <!-- 全新的自訂佈局容器 -->
+        <div class="interview-layout">
+            
+            <!-- 左側：標題與導語 -->
+            <div class="text-col">
+                <header class="major" style="margin-bottom: 1.5em;">
+                    <h2 style="font-size: 2.2em; font-weight: bold; color: #222; letter-spacing: 2px;">鏡頭下的麥理浩徑</h2>
+                    <p style="font-size: 1.1em; color: #888;">聽聽遠足者與遊客怎麼說</p>
+                </header>
+                <p style="font-size: 1.1em; line-height: 1.9; color: #444; text-align: justify;">
+                    隨著打卡人潮湧入，原本寧靜的自然生態受到了哪些影響？我們走訪了多位前來朝聖的遊客，記錄下這條百年步道面臨的真實挑戰。
+                </p>
+            </div>
+
+            <!-- 右側：影片區塊 -->
+            <div class="video-col">
+                <div class="video-container" style="width: 100%; aspect-ratio: 16 / 9; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.15); background-color: #000; border: 1px solid #eaeaea;">
+                    <video style="width: 100%; height: 100%; object-fit: contain;" controls poster="images/video-poster.jpg">
+                        <source src="你的影片路徑.mp4" type="video/mp4">
+                        您的瀏覽器不支援影片播放。
+                    </video>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- ==========================================
+     3D 滿版環形畫廊 (Circular Gallery)
+     ========================================== -->
+<section id="gallery-section">
+    <!-- 這個 div 就是用來裝 3D 畫布的容器 -->
+    <div id="circular-gallery" class="circular-gallery"></div>
+</section>
+
+
+
+
+<!-- ==========================================
+     Section 2: 問題探討 (左圖片、右文字)
+     ========================================== -->
 <section id="question" class="spotlight right">
     
-    <!-- 🌟 左側欄目：大標題 + 直式照片 -->
-    <div class="left-col vertical-img-container">
-        <header class="major" style="margin-bottom: 2em;">
-            <h2>鏡頭下的麥理浩徑</h2>
-            <p>聽聽遠足者與當地居民怎麼說</p>
-        </header>
-        
+    <!-- 左側：直式照片 -->
+    <div class="image-wrapper main vertical-img">
         <img src="photo/heck.jpg" alt="麥理浩徑塞車實況" />
     </div>
     
-    <!-- 🌟 右側欄目：導語 + 影片 + 原本文字 -->
+    <!-- 右側：文字內容 -->
     <div class="content">
-        
-        <!-- 導語放在影片正上方，緊密相連 -->
-        <p style="margin-bottom: 1.5em; font-size: 1.1em; line-height: 1.8; color: #444;">
-            隨著打卡人潮湧入，原本寧靜的自然生態與當地居民生活受到了哪些影響？我們走訪了多位持份者，記錄下這條百年步道面臨的真實挑戰。
-        </p>
-        
-        <!-- 影片區塊 (維持 16:9 完美比例) -->
-        <div class="video-container" style="width: 100%; aspect-ratio: 16 / 9; margin-bottom: 4em; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); background-color: #000;">
-            <video style="width: 100%; height: 100%; object-fit: contain;" controls poster="images/video-poster.jpg">
-                <source src="你的影片路徑.mp4" type="video/mp4">
-                您的瀏覽器不支援影片播放。
-            </video>
-        </div>
-
-        <!-- 原本的下半部文字 -->
         <header>
             <h2>当公共安全与生态保护的红线，在“打卡热潮”的冲击下不断后移</h2>
             <p>了解麥理浩徑</p>
         </header>
         <p>麦理浩径该继续保持‘无痕山林’的纯粹，还是顺应时代，转型为设施齐备的‘天然主题公园’？</p>
         <p>对于资深远足者来说，麦理浩径的魅力在于自然粗粝的原始荒野；而对于跟风抵达东坝的游客来说，第一印象是“怎么连个自动贩卖机都没有”。社交媒体的“破圈”式传播，将这条昔日属于硬核远足者的荒野路径，变成了大众打卡的新宠。</p>
-        
     </div>
 </section>
 
 
-
-			<!-- Question -->
+			<!-- Question2 -->
 				<section id="one" class="wrapper style1">
 					<div class="container 75%">
 						<div class="row 200%">
@@ -390,8 +421,12 @@
         });
 
         // 綁定所有帶有 spotlight 的區塊
-        document.querySelectorAll('.spotlight').forEach(el => observer.observe(el));
-    });
-</script>
+        document.querySelectorAll('.spotlight').forEach(el => observer.observe(el));});
+		</script>
+		
+		<!-- 引入 3D 環形畫廊腳本 -->
+		<!-- 🌟 關鍵：因為腳本裡面使用了 import，所以必須加上 type="module" -->
+		<script type="module" src="assets/js/gallery.js"></script>
+
     </body>
 </html>
