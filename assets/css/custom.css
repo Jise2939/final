@@ -359,3 +359,49 @@ to { opacity: 1; transform: translateY(0); }
 .circular-gallery:active {
     cursor: grabbing; /* 拖曳中的游標狀態 */
 }
+
+/* ==========================================
+   Scroll Stack (滾動堆疊卡片) 樣式
+   ========================================== */
+.scroll-stack-scroller {
+    position: relative;
+    width: 100%;
+    /* 這裡不用 height: 100%，因為我們讓它跟隨整個網頁滾動 */
+    overflow-x: visible;
+}
+
+.scroll-stack-inner {
+    position: relative;
+    /* padding-top 決定了第一張卡片黏住的位置 (距螢幕頂部的距離) */
+    padding-top: 1em; /* 讓第一張卡片在距離螢幕頂部 20vh 的位置開始黏住 */
+    padding: 2em 0 10vh;
+}
+
+.scroll-stack-card {
+    transform-origin: top center;
+    will-change: transform, filter;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); /* 柔和的高級陰影 */
+    width: 100%;
+    margin-bottom: 60px; /* 卡片之間的距離 */
+    padding: 3em 3em;
+    border-radius: 20px; /* 圓角卡片 */
+    box-sizing: border-box;
+    border: 1px solid #eaeaea;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    position: relative;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    
+    /* 確保裡面的文字排版漂亮 */
+    font-size: 1.1em;
+    color: #555;
+    line-height: 1.9;
+    text-align: justify;
+}
+
+.scroll-stack-end {
+    width: 100%;
+    height: 1px;
+}
