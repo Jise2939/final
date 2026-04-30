@@ -6,99 +6,23 @@
 -->
 <html>
     <head>
-        <title>Spatial by TEMPLATED</title>
+        <title>「超載」的郊野公園</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        
         <link rel="stylesheet" href="assets/css/main.css" />
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+		<link rel="stylesheet" href="assets/css/custom.css" />
         <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
         <script src="https://d3js.org/d3.v7.min.js"></script>
         <link rel="stylesheet" href="https://unpkg.com/@raruto/leaflet-elevation/dist/leaflet-elevation.css" />
         <script src="https://unpkg.com/@raruto/leaflet-elevation/dist/leaflet-elevation.js"></script>
         
-        <style>
-            /* ==========================================
-               1. 下拉展開區域的卡片外觀 (居中設計)
-               ========================================== */
-            #map-wrapper {
-                display: none; /* 預設隱藏，點擊後才顯示 */
-                margin: 3em auto 0 auto; /* 居中對齊，上方留白 */
-                max-width: 900px; /* 限制最大寬度，讓版面更好看 */
-                background-color: #fcfcfc;
-                padding: 20px;
-                border-radius: 8px;
-                box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-                border: 1px solid #eaeaea;
-                transition: all 0.3s ease;
-            }
-
-            /* ==========================================
-               2. 地圖與圖表容器尺寸
-               ========================================== */
-            #map-container { 
-                height: 450px; 
-                width: 100%; 
-                border-radius: 4px 4px 0 0; 
-                border: 1px solid #ccc;
-                z-index: 1; 
-                overflow: hidden;
-            }
-
-            #elevation-container { 
-                height: 220px; 
-                width: 100%; 
-                border: 1px solid #ccc; 
-                border-top: none; 
-                border-radius: 0 0 4px 4px; 
-                background: white; 
-                position: relative;
-            }
-
-            /* ==========================================
-               3. BUG 修復：隱藏地圖上的干擾元素
-               ========================================== */
-            
-            /* 隱藏地圖上的垂直黑線 */
-            #map-container svg .mouse-focus-line,
-            #map-container svg line,
-            #map-container .leaflet-elevation-leader {
-                display: none !important; opacity: 0 !important; visibility: hidden !important;
-            }
-            
-            /* 隱藏地圖上的數字(如419m)、里程白圈圈、標記陰影 */
-            #map-container .leaflet-elevation-point-label,
-            #map-container .elevation-pointer-label,
-            #map-container .leaflet-tooltip-pane,
-            #map-container .elevation-waypoint-marker,
-            #map-container .elevation-distance-marker,
-            #map-container .leaflet-marker-shadow {
-                display: none !important; opacity: 0 !important; visibility: hidden !important;
-            }
-
-            /* 確保下方海拔圖表內的垂直指示線正常顯示 */
-            #elevation-container .mouse-focus-line {
-                display: block !important; opacity: 1 !important; visibility: visible !important;
-                stroke: #666 !important; stroke-width: 1px !important;
-            }
-
-            /* ==========================================
-               4. BUG 修復：扁平化下方圖表外掛
-               ========================================== */
-            .elevation-control.leaflet-control {
-                background: transparent !important; box-shadow: none !important; border: none !important; 
-                margin: 0 !important; padding: 0 !important; width: 100% !important;
-            }
-            .elevation-control-container { background: transparent !important; }
-            .elevation-control.elevation-toggle { display: none !important; }
-            .elevation-summary { font-size: 13px; color: #666; margin-top: 15px; text-align: center; }
-        </style>
     </head>
     <body class="landing">
 
         <!-- Header -->
         <header id="header" class="alt">
-            <h1><strong><a href="index.html">Spatial</a></strong> by Templated</h1>
+            <h1><strong><a href="index.html">Data Story</a></strong> by LMWXMY</h1>
             <nav id="nav">
                 <ul>
                     <li><a href="index.html">Home</a></li>
@@ -111,62 +35,102 @@
         <a href="#menu" class="navPanelToggle"><span class="fa fa-bars"></span></a>
 
         <!-- Banner -->
-        <section id="banner">
-            <h2>「超载」的郊野公园</h2>
-            <p>麦理浩径走红给香港带来了什么？</p>
-        </section>
+		<section id="parallax-banner" style="background-image: url('photo/cover.jpg');">
+			<div class="content">
+				<header>
+					<h2>「超载」的郊野公园</h2>
+					<p>麦理浩径走红给香港带来了什么？</p>
+				</header>
+			</div>
+		</section>
 
-        <!-- One -->
-        <section id="one" class="wrapper style1">
-            <div class="container 75%">
+	<!-- One -->
+	<section id="one" class="wrapper style1">
+    
+    <!-- 🌟 修復 1：補回遺失的 container 容器，確保版面寬度正常 -->
+    <div class="container 75%">
+        
+        <!-- ==========================================
+            第一區塊：文字介紹 (左側標題與按鈕，右側長文) 
+            ========================================== -->
+        <div class="row 200%">
+            
+            <!-- 左半邊：大標題、副標題、按鈕 (水平置中，垂直靠上對齊) -->
+            <!-- 🌟 修復 2：改為 flex-start 讓它與右邊文字頂部對齊，並加上微調 padding-top -->
+            <div class="6u 12u$(medium)" style="display: flex; flex-direction: column; align-items: center; justify-content: flex-start; text-align: center; padding-top: 1em;">
+                <header class="major" style="margin-bottom: 2em;">
+                    <h2>「五一」将至</h2>
+                    <p>了解麥理浩徑</p>
+                </header>
                 
-                <div class="row 200%">
-                    <div class="6u 12u$(medium)">
-                        <header class="major">
-                            <h2>「五一」将至</h2>
-                            <p>了解麥理浩徑</p>
-                        </header>
-                    </div>
-                    <div class="6u$ 12u$(medium)">
-                        <p>麦理浩径全长100公里，由东向西横跨香港，因其从海岸奇观到全港最高峰的极致地貌跨度，被《国家地理》评为全球二十条最佳远足径之一。</p>
-                        <p>对于资深远足者XX来说，麦理浩径的魅力在于自然粗粝的原始荒野；而对于跟风抵达东坝的游客XX来说，第一印象是“怎么连个自动贩卖机都没有”。社交媒体的“破圈”式传播，将这条昔日属于硬核远足者的荒野路径，变成了大众打卡的新宠。</p>
-                        <p>在即将到来的五一假期……</p>
-                        
-                        <!-- 點擊展開的按鈕 -->
-                        <ul class="actions">
-                            <li><a href="#" id="toggle-map-btn" class="button special">查看路線與海拔圖</a></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- ==========================================
-                     點擊後向下展開的地圖與圖表區域 (預設隱藏)
-                     ========================================== -->
-                <div id="map-wrapper" class="12u$">
-                    <div id="map-container"></div>
-                    <div id="elevation-container"></div>
-                </div>
-
+                <!-- 點擊展開的按鈕 -->
+                <ul class="actions" style="justify-content: center; padding-left: 0;">
+                    <li><a href="#" id="toggle-map-btn" class="button special">查看路線與海拔圖</a></li>
+                </ul>
             </div>
-        </section>
-                
-        <!-- Question -->
-        <section id="question" class="wrapper style1">
-            <div class="container 75%">
-                <div class="row 200%">
-                    <div class="6u 12u$(medium)">
-                        <header class="major">
-                            <h2>当公共安全与生态保护的红线，在“打卡热潮”的冲击下不断后移...</h2>
-                        </header>
-                    </div>
-                    <div class="6u$ 12u$(medium)">
-                        <p>麦理浩径全长100公里，由东向西横跨香港，因其从海岸奇观到全港最高峰的极致地貌跨度，被《国家地理》评为全球二十条最佳远足径之一。</p>
-                    </div>
-                </div>
+            
+            <!-- 右半邊：文字段落 -->
+            <div class="6u$ 12u$(medium)">
+                <p>麦理浩径全长100公里，由东向西横跨香港，因其从海岸奇观到全港最高峰的极致地貌跨度，被《国家地理》评为全球二十条最佳远足径之一。</p>
+                <p>对于资深远足者阿强来说，麦理浩径的魅力在于自然粗粝的原始荒野；而对于跟风抵达东坝的游客王小姐来说，最大的落差是“怎么连个自动贩卖机都没有”。</p>
+                <p>社交媒体的“破圈”式传播，将这条昔日属于硬核远足者的荒野路径，变成了大众打卡的新宠。2026年五一假期前夕，社交媒体上关于“麦理浩径徒步”的搜索量再次录得显著增长。</p>
             </div>
-        </section>
+        </div>
 
-            				
+        <!-- ==========================================
+             點擊後向下展開的地圖與圖表區域 (預設隱藏)
+             ========================================== -->
+        <!-- 🌟 修復 3：移除多餘的 12u$ 網格 class，因為它在 row 外面，靠 CSS 的 margin: auto 居中即可 -->
+        <div id="map-wrapper">
+            <div id="map-container"></div>
+            <div id="elevation-container"></div>
+        </div>
+
+			</div> <!-- 這個 div 對應的是開頭補回的 container 75% -->
+		</section>
+					
+		
+<!-- Question 區塊 (左側標題與圖，右側導語與影片) -->
+<section id="question" class="spotlight right">
+    
+    <!-- 🌟 左側欄目：大標題 + 直式照片 -->
+    <div class="left-col vertical-img-container">
+        <header class="major" style="margin-bottom: 2em;">
+            <h2>鏡頭下的麥理浩徑</h2>
+            <p>聽聽遠足者與當地居民怎麼說</p>
+        </header>
+        
+        <img src="photo/heck.jpg" alt="麥理浩徑塞車實況" />
+    </div>
+    
+    <!-- 🌟 右側欄目：導語 + 影片 + 原本文字 -->
+    <div class="content">
+        
+        <!-- 導語放在影片正上方，緊密相連 -->
+        <p style="margin-bottom: 1.5em; font-size: 1.1em; line-height: 1.8; color: #444;">
+            隨著打卡人潮湧入，原本寧靜的自然生態與當地居民生活受到了哪些影響？我們走訪了多位持份者，記錄下這條百年步道面臨的真實挑戰。
+        </p>
+        
+        <!-- 影片區塊 (維持 16:9 完美比例) -->
+        <div class="video-container" style="width: 100%; aspect-ratio: 16 / 9; margin-bottom: 4em; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); background-color: #000;">
+            <video style="width: 100%; height: 100%; object-fit: contain;" controls poster="images/video-poster.jpg">
+                <source src="你的影片路徑.mp4" type="video/mp4">
+                您的瀏覽器不支援影片播放。
+            </video>
+        </div>
+
+        <!-- 原本的下半部文字 -->
+        <header>
+            <h2>当公共安全与生态保护的红线，在“打卡热潮”的冲击下不断后移</h2>
+            <p>了解麥理浩徑</p>
+        </header>
+        <p>麦理浩径该继续保持‘无痕山林’的纯粹，还是顺应时代，转型为设施齐备的‘天然主题公园’？</p>
+        <p>对于资深远足者来说，麦理浩径的魅力在于自然粗粝的原始荒野；而对于跟风抵达东坝的游客来说，第一印象是“怎么连个自动贩卖机都没有”。社交媒体的“破圈”式传播，将这条昔日属于硬核远足者的荒野路径，变成了大众打卡的新宠。</p>
+        
+    </div>
+</section>
+
+
 
 			<!-- Question -->
 				<section id="one" class="wrapper style1">
@@ -411,5 +375,23 @@
                 }
             });
         </script>
+		<script>
+    // 偵測 Spotlight 區塊是否進入畫面，進入時觸發滑動效果
+    document.addEventListener("DOMContentLoaded", function() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible'); // 加入 class 觸發 CSS 動畫
+                    observer.unobserve(entry.target); // 觸發一次後解除觀察
+                }
+            });
+        }, { 
+            threshold: 0.2 // 當區塊出現 20% 在畫面上時觸發
+        });
+
+        // 綁定所有帶有 spotlight 的區塊
+        document.querySelectorAll('.spotlight').forEach(el => observer.observe(el));
+    });
+</script>
     </body>
 </html>

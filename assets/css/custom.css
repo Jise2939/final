@@ -1,0 +1,292 @@
+/* ==========================================
+    1. 下拉展開區域的卡片外觀 (居中設計)
+    ========================================== */
+#map-wrapper {
+    display: none; /* 預設隱藏，點擊後才顯示 */
+    margin: 3em auto 0 auto; /* 居中對齊，上方留白 */
+    max-width: 900px; /* 限制最大寬度，讓版面更好看 */
+    background-color: #fcfcfc;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    border: 1px solid #eaeaea;
+    transition: all 0.3s ease;
+}
+
+/* ==========================================
+    2. 地圖與圖表容器尺寸
+    ========================================== */
+#map-container { 
+    height: 450px; 
+    width: 100%; 
+    border-radius: 4px 4px 0 0; 
+    border: 1px solid #ccc;
+    z-index: 1; 
+    overflow: hidden;
+}
+
+#elevation-container { 
+    height: 220px; 
+    width: 100%; 
+    border: 1px solid #ccc; 
+    border-top: none; 
+    border-radius: 0 0 4px 4px; 
+    background: white; 
+    position: relative;
+}
+
+/* ==========================================
+    3. BUG 修復：隱藏地圖上的干擾元素
+    ========================================== */
+
+/* 隱藏地圖上的垂直黑線 */
+#map-container svg .mouse-focus-line,
+#map-container svg line,
+#map-container .leaflet-elevation-leader {
+    display: none !important; opacity: 0 !important; visibility: hidden !important;
+}
+
+/* 隱藏地圖上的數字(如419m)、里程白圈圈、標記陰影 */
+#map-container .leaflet-elevation-point-label,
+#map-container .elevation-pointer-label,
+#map-container .leaflet-tooltip-pane,
+#map-container .elevation-waypoint-marker,
+#map-container .elevation-distance-marker,
+#map-container .leaflet-marker-shadow {
+    display: none !important; opacity: 0 !important; visibility: hidden !important;
+}
+
+/* 確保下方海拔圖表內的垂直指示線正常顯示 */
+#elevation-container .mouse-focus-line {
+    display: block !important; opacity: 1 !important; visibility: visible !important;
+    stroke: #666 !important; stroke-width: 1px !important;
+}
+
+/* ==========================================
+    4. BUG 修復：扁平化下方圖表外掛
+    ========================================== */
+.elevation-control.leaflet-control {
+    background: transparent !important; box-shadow: none !important; border: none !important; 
+    margin: 0 !important; padding: 0 !important; width: 100% !important;
+}
+.elevation-control-container { background: transparent !important; }
+.elevation-control.elevation-toggle { display: none !important; }
+.elevation-summary { font-size: 13px; color: #666; margin-top: 15px; text-align: center; }
+
+
+/* ==========================================
+Landed 模板風格：視差封面與滑動 Spotlight
+========================================== */
+
+/* 1. 視差封面 (Parallax Banner) */
+#parallax-banner {
+position: relative;
+/* 請確保 images/pic01.jpg 存在，或替換成你想要的封面圖路徑 */
+background-image: url('images/pic01.jpg'); 
+background-attachment: fixed; /* 創造圖片滑動視差的核心 */
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
+height: 100vh; /* 佔滿全螢幕高度 */
+display: flex;
+align-items: center;
+justify-content: center;
+text-align: center;
+color: white;
+}
+/* 給封面加上深色遮罩，讓白字更清楚 */
+#parallax-banner:before {
+content: '';
+position: absolute;
+top: 0; left: 0; right: 0; bottom: 0;
+background: rgba(36, 41, 67, 0.6); 
+z-index: 1;
+}
+#parallax-banner .content {
+position: relative;
+z-index: 2;
+animation: fadeIn 1.5s ease-out;
+}
+
+/* 2. 左右圖文滑動區塊 (Spotlight) */
+.spotlight {
+display: flex;
+align-items: center;
+min-height: 70vh;
+background-color: #fff;
+overflow: hidden;
+}
+.spotlight.right { flex-direction: row; }
+.spotlight.left { flex-direction: row-reverse; }
+
+.spotlight .image.main {
+width: 50%;
+height: 70vh;
+margin: 0;
+}
+.spotlight .image.main img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+}
+.spotlight .content {
+width: 50%;
+padding: 5em;
+/* 滑動進入的初始狀態：透明且位移 */
+opacity: 0;
+transform: translateX(50px);
+transition: opacity 1s ease, transform 1s ease;
+}
+.spotlight.left .content { transform: translateX(-50px); }
+
+/* 當滾動到該區域時，JS 會加上 is-visible class 觸發滑動 */
+.spotlight.is-visible .content {
+opacity: 1;
+transform: translateX(0);
+}
+
+/* 響應式：手機版改為上下排列 */
+@media screen and (max-width: 980px) {
+.spotlight, .spotlight.right, .spotlight.left { flex-direction: column; }
+.spotlight .image.main, .spotlight .content { width: 100%; height: auto; }
+.spotlight .content { padding: 3em 2em; }
+}
+
+@keyframes fadeIn {
+from { opacity: 0; transform: translateY(20px); }
+to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================
+   封面標題字體美化與放大
+   ========================================== */
+
+/* 1. 大標題 (「超載」的郊野公園) */
+#parallax-banner h2 {
+    color: #ffffff !important; /* 強制變為純白色 */
+    font-size: 4em; /* 把字體大幅度放大 */
+    font-weight: 700; /* 加粗 */
+    letter-spacing: 2px; /* 增加一點字距，更有大氣感 */
+    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.7); /* 加入深色文字陰影，避免被亮色背景吃掉 */
+    margin-bottom: 1em; /* 跟副標題的距離 */
+}
+
+/* 2. 副標題 (麦理浩径走红给香港带来了什么？) */
+#parallax-banner p {
+    color: #fdfdfd !important; /* 用極亮且微柔和的白色 */
+    font-size: 1em; /* 放大副標題 */
+    letter-spacing: 1px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7); /* 同樣加上陰影 */
+}
+
+/* ==========================================
+   響應式設計 (手機螢幕自動縮小一點，避免破版)
+   ========================================== */
+@media screen and (max-width: 980px) {
+    #parallax-banner h2 { font-size: 3em; }
+    #parallax-banner p { font-size: 1.4em; }
+}
+
+@media screen and (max-width: 736px) {
+    #parallax-banner h2 { font-size: 2.2em; }
+    #parallax-banner p { font-size: 1.1em; }
+}
+
+/* ==========================================
+   第一區塊 (#one) 文字大小與中文字體美化
+   ========================================== */
+
+/* ==========================================
+   調整第一區塊 (#one) 的板塊高度與留白
+   ========================================== */
+
+#one.wrapper {
+    padding-top: 5em;    /* 頂部空白高度 (數值越大，板塊越長) */
+    padding-bottom: 5em; /* 底部空白高度 (數值越小，板塊越短) */
+}
+
+/* 手機版螢幕的專屬設定 (通常手機版不需要留太多空白) */
+@media screen and (max-width: 736px) {
+    #one.wrapper {
+        padding-top: 2em;
+        padding-bottom: 2em;
+    }
+}
+
+/* 1. 設定整個區塊的預設中文字體與內文段落 */
+#one {
+    /* 加入優質中文字體庫 (蘋果蘋方、微軟雅黑、思源黑體等)，讓中文字變得更現代、更清晰 */
+    font-family: "PingFang TC", "PingFang SC", "Microsoft YaHei", "Noto Sans TC", sans-serif;
+}
+
+/* 2. 針對「右側長文」的段落設定 */
+#one p {
+    font-size: 1.1em;        /* 放大內文字體 (原本大約是 1em) */
+    line-height: 1.9;        /* 增加行高，讓段落呼吸空間變大，閱讀起來不吃力 */
+    color: #444444;          /* 把內文顏色調深一點點，增加對比度 */
+    text-align: justify;     /* 強制左右對齊，讓右側文章邊緣看起來像報紙一樣整齊 */
+    margin-bottom: 1.5em;    /* 每個段落之間的距離 */
+}
+
+/* 3. 左側大標題 (「五一」将至) */
+#one header.major h2 {
+    font-size: 2.5em;        /* 標題大小 */
+    font-weight: bold;       /* 字體加粗 */
+    color: #222222;          /* 標題顏色 (接近純黑) */
+    letter-spacing: 2px;     /* 字元間距，讓標題更大氣 */
+}
+
+/* 4. 左側副標題 (了解麥理浩徑) */
+#one header.major p {
+    font-size: 1.2em;        /* 副標題大小 */
+    color: #888888;          /* 淺灰色，用來襯托主標題 */
+    letter-spacing: 1px;     
+    text-align: center;      /* 確保副標題乖乖置中 */
+    margin-bottom: 0;        /* 消除不必要的底部空白 */
+}
+
+
+/* ==========================================
+   Spotlight 左側：大標題 + 直式圖片
+   ========================================== */
+
+.spotlight .left-col.vertical-img-container {
+    width: 40%;
+    display: flex;
+    flex-direction: column;   /* 讓標題和圖片上下排列 */
+    justify-content: center;  /* 整個左側區塊垂直居中對齊右側 */
+    align-items: flex-start;  /* 🌟 讓標題與圖片全部靠左對齊 */
+    padding: 4em 2em 4em 4em;
+}
+
+.spotlight .left-col.vertical-img-container img {
+    max-width: 100%;
+    max-height: 70vh;         /* 高度稍微降到 70vh，把空間讓給上方的標題 */
+    width: auto;
+    height: auto;
+    object-fit: contain;      /* 確保照片不變形、不被裁切 */
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+}
+
+/* 調整右側文字與影片區塊的寬度 */
+.spotlight:has(.left-col) .content {
+    width: 60%; 
+    padding: 5em 5em 5em 3em; 
+}
+
+/* 手機版響應式設定 (小螢幕時自動變成上下排列) */
+@media screen and (max-width: 980px) {
+    .spotlight .left-col.vertical-img-container {
+        width: 100%;
+        padding: 3em 2em 1em 2em; /* 手機版微調留白 */
+    }
+    .spotlight .left-col.vertical-img-container img {
+        max-height: 60vh;
+        margin-top: 1em; /* 在標題與圖片間加點距離 */
+    }
+    .spotlight:has(.left-col) .content {
+        width: 100%; 
+        padding: 2em 2em 3em 2em; 
+    }
+}
