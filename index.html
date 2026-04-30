@@ -1,56 +1,172 @@
 <!DOCTYPE HTML>
 <!--
-	Spatial by TEMPLATED
-	templated.co @templatedco
-	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+    Spatial by TEMPLATED
+    templated.co @templatedco
+    Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
 -->
 <html>
-	<head>
-		<title>Spatial by TEMPLATED</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-	</head>
-	<body class="landing">
+    <head>
+        <title>Spatial by TEMPLATED</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        
+        <link rel="stylesheet" href="assets/css/main.css" />
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+        <script src="https://d3js.org/d3.v7.min.js"></script>
+        <link rel="stylesheet" href="https://unpkg.com/@raruto/leaflet-elevation/dist/leaflet-elevation.css" />
+        <script src="https://unpkg.com/@raruto/leaflet-elevation/dist/leaflet-elevation.js"></script>
+        
+        <style>
+            /* ==========================================
+               1. 下拉展開區域的卡片外觀 (居中設計)
+               ========================================== */
+            #map-wrapper {
+                display: none; /* 預設隱藏，點擊後才顯示 */
+                margin: 3em auto 0 auto; /* 居中對齊，上方留白 */
+                max-width: 900px; /* 限制最大寬度，讓版面更好看 */
+                background-color: #fcfcfc;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+                border: 1px solid #eaeaea;
+                transition: all 0.3s ease;
+            }
 
-		<!-- Header -->
-			<header id="header" class="alt">
-				<h1><strong><a href="index.html">Spatial</a></strong> by Templated</h1>
-				<nav id="nav">
-					<ul>
-						<li><a href="index.html">Home</a></li>
-						<li><a href="generic.html">Generic</a></li>
-						<li><a href="elements.html">Elements</a></li>
-					</ul>
-				</nav>
-			</header>
+            /* ==========================================
+               2. 地圖與圖表容器尺寸
+               ========================================== */
+            #map-container { 
+                height: 450px; 
+                width: 100%; 
+                border-radius: 4px 4px 0 0; 
+                border: 1px solid #ccc;
+                z-index: 1; 
+                overflow: hidden;
+            }
 
-			<a href="#menu" class="navPanelToggle"><span class="fa fa-bars"></span></a>
+            #elevation-container { 
+                height: 220px; 
+                width: 100%; 
+                border: 1px solid #ccc; 
+                border-top: none; 
+                border-radius: 0 0 4px 4px; 
+                background: white; 
+                position: relative;
+            }
 
-		<!-- Banner -->
-			<section id="banner">
-				<h2>「超载」的郊野公园</h2>
-				<p>麦理浩径走红给香港带来了什么？</p>
-			</section>
+            /* ==========================================
+               3. BUG 修復：隱藏地圖上的干擾元素
+               ========================================== */
+            
+            /* 隱藏地圖上的垂直黑線 */
+            #map-container svg .mouse-focus-line,
+            #map-container svg line,
+            #map-container .leaflet-elevation-leader {
+                display: none !important; opacity: 0 !important; visibility: hidden !important;
+            }
+            
+            /* 隱藏地圖上的數字(如419m)、里程白圈圈、標記陰影 */
+            #map-container .leaflet-elevation-point-label,
+            #map-container .elevation-pointer-label,
+            #map-container .leaflet-tooltip-pane,
+            #map-container .elevation-waypoint-marker,
+            #map-container .elevation-distance-marker,
+            #map-container .leaflet-marker-shadow {
+                display: none !important; opacity: 0 !important; visibility: hidden !important;
+            }
 
-			<!-- One -->
-				<section id="one" class="wrapper style1">
-					<div class="container 75%">
-						<div class="row 200%">
-							<div class="6u 12u$(medium)">
-								<header class="major">
-									<h2>「五一」将至</h2>
-									<p>了解麥理浩徑</p>
-								</header>
-							</div>
-							<div class="6u$ 12u$(medium)">
-								<p>麦理浩径全长100公里，由东向西横跨香港，因其从海岸奇观到全港最高峰的极致地貌跨度，被《国家地理》评为全球二十条最佳远足径之一。</p>
-								<p>对于资深远足者XX来说，麦理浩径的魅力在于自然粗粝的原始荒野；而对于跟风抵达东坝的游客XX来说，第一印象是“怎么连个自动贩卖机都没有”。社交媒体的“破圈”式传播，将这条昔日属于硬核远足者的荒野路径，变成了大众打卡的新宠。</p>
-							<p>在即将到来的五一假期……</p>
-							</div>
-						</div>
-					</div>
-				</section>
+            /* 確保下方海拔圖表內的垂直指示線正常顯示 */
+            #elevation-container .mouse-focus-line {
+                display: block !important; opacity: 1 !important; visibility: visible !important;
+                stroke: #666 !important; stroke-width: 1px !important;
+            }
+
+            /* ==========================================
+               4. BUG 修復：扁平化下方圖表外掛
+               ========================================== */
+            .elevation-control.leaflet-control {
+                background: transparent !important; box-shadow: none !important; border: none !important; 
+                margin: 0 !important; padding: 0 !important; width: 100% !important;
+            }
+            .elevation-control-container { background: transparent !important; }
+            .elevation-control.elevation-toggle { display: none !important; }
+            .elevation-summary { font-size: 13px; color: #666; margin-top: 15px; text-align: center; }
+        </style>
+    </head>
+    <body class="landing">
+
+        <!-- Header -->
+        <header id="header" class="alt">
+            <h1><strong><a href="index.html">Spatial</a></strong> by Templated</h1>
+            <nav id="nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="generic.html">Generic</a></li>
+                    <li><a href="elements.html">Elements</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <a href="#menu" class="navPanelToggle"><span class="fa fa-bars"></span></a>
+
+        <!-- Banner -->
+        <section id="banner">
+            <h2>「超载」的郊野公园</h2>
+            <p>麦理浩径走红给香港带来了什么？</p>
+        </section>
+
+        <!-- One -->
+        <section id="one" class="wrapper style1">
+            <div class="container 75%">
+                
+                <div class="row 200%">
+                    <div class="6u 12u$(medium)">
+                        <header class="major">
+                            <h2>「五一」将至</h2>
+                            <p>了解麥理浩徑</p>
+                        </header>
+                    </div>
+                    <div class="6u$ 12u$(medium)">
+                        <p>麦理浩径全长100公里，由东向西横跨香港，因其从海岸奇观到全港最高峰的极致地貌跨度，被《国家地理》评为全球二十条最佳远足径之一。</p>
+                        <p>对于资深远足者XX来说，麦理浩径的魅力在于自然粗粝的原始荒野；而对于跟风抵达东坝的游客XX来说，第一印象是“怎么连个自动贩卖机都没有”。社交媒体的“破圈”式传播，将这条昔日属于硬核远足者的荒野路径，变成了大众打卡的新宠。</p>
+                        <p>在即将到来的五一假期……</p>
+                        
+                        <!-- 點擊展開的按鈕 -->
+                        <ul class="actions">
+                            <li><a href="#" id="toggle-map-btn" class="button special">查看路線與海拔圖</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- ==========================================
+                     點擊後向下展開的地圖與圖表區域 (預設隱藏)
+                     ========================================== -->
+                <div id="map-wrapper" class="12u$">
+                    <div id="map-container"></div>
+                    <div id="elevation-container"></div>
+                </div>
+
+            </div>
+        </section>
+                
+        <!-- Question -->
+        <section id="question" class="wrapper style1">
+            <div class="container 75%">
+                <div class="row 200%">
+                    <div class="6u 12u$(medium)">
+                        <header class="major">
+                            <h2>当公共安全与生态保护的红线，在“打卡热潮”的冲击下不断后移...</h2>
+                        </header>
+                    </div>
+                    <div class="6u$ 12u$(medium)">
+                        <p>麦理浩径全长100公里，由东向西横跨香港，因其从海岸奇观到全港最高峰的极致地貌跨度，被《国家地理》评为全球二十条最佳远足径之一。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+            				
 
 			<!-- Question -->
 				<section id="one" class="wrapper style1">
@@ -98,19 +214,36 @@
 					</div>
 				</section>
 
+				<!-- data -->
+				<section id="two" class="wrapper style2 special">
+					<div class="container">
+						<header class="major">
+							<h2>Fusce ultrices fringilla</h2>
+							<p>打开小红书搜索“麦理浩径”，大量帖文配有调色后的山海风光，标题含有“人生必走”等字眼，并附有拍照攻略。抖音平台上的热度同样明显。</p>
+						</header>
+						<div>
+							<div class="6u$ 12u$(xsmall)"></div>
+							<div class="flourish-embed flourish-chart" data-src="visualisation/28749668"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/28749668/thumbnail" width="100%" alt="chart visualization" /></noscript>
+							</div>
+							</div>
+						</div>
+						
+					</div>
+				</section>
+				
 			<!-- Three -->
 				<section id="three" class="wrapper style1">
 					<div class="container">
 						<header class="major special">
-							<h2>Mauris vulputate dolor</h2>
-							<p>Feugiat sed lorem ipsum magna</p>
+							<h2>游客数量上升带来的现实问题</h2>
+							<p>“亿万“关注背后的代价：当网红郊野公园遇上安全与垃圾危机。</p>
 						</header>
 						<div class="feature-grid">
 							<div class="feature">
 								<div class="image rounded"><img src="images/pic04.jpg" alt="" /></div>
 								<div class="content">
 									<header>
-										<h4>Lorem ipsum</h4>
+										<h4>直升机盘旋之下</h4>
 										<p>Lorem ipsum dolor sit</p>
 									</header>
 									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore esse tenetur accusantium porro omnis, unde mollitia totam sit nesciunt consectetur.</p>
@@ -178,12 +311,105 @@
 					</ul>
 				</div>
 			</footer>
+        
+        <!-- Scripts -->
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/js/skel.min.js"></script>
+        <script src="assets/js/util.js"></script>
+        <script src="assets/js/main.js"></script>
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/skel.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                
+                const toggleBtn = document.getElementById('toggle-map-btn');
+                const mapWrapper = document.getElementById('map-wrapper');
+                let mapInitialized = false; // 追蹤地圖是否已經載入過
+                let map; // 儲存地圖實例
 
-	</body>
+                // 點擊按鈕時展開/收起地圖
+                toggleBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+
+                    // 如果現在是隱藏狀態，就把它顯示出來
+                    if (mapWrapper.style.display === 'none' || mapWrapper.style.display === '') {
+                        mapWrapper.style.display = 'block';
+                        toggleBtn.textContent = '收起路線與海拔圖'; // 改變按鈕文字
+                        
+                        // 初次打開時初始化地圖
+                        if (!mapInitialized) {
+                            initMap();
+                            mapInitialized = true;
+                        } else {
+                            // 🌟 關鍵修復：每次重新展開時，必須觸發 resize 事件，
+                            // 否則 Leaflet 地圖會加載不全，D3 圖表寬度會算錯
+                            setTimeout(() => {
+                                map.invalidateSize();
+                                window.dispatchEvent(new Event('resize'));
+                            }, 100);
+                        }
+                    } else {
+                        // 如果已經是顯示狀態，就把它隱藏
+                        mapWrapper.style.display = 'none';
+                        toggleBtn.textContent = '查看路線與海拔圖'; // 還原按鈕文字
+                    }
+                });
+
+                // 初始化地圖與圖表的函式
+                function initMap() {
+                    delete L.Icon.Default.prototype._getIconUrl;
+                    L.Icon.Default.mergeOptions({
+                        iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
+                        iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
+                        shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+                    });
+
+                    // 關閉滾輪縮放，避免使用者往下滾動網頁時卡在地圖上
+                    map = L.map('map-container', { scrollWheelZoom: false }).setView([22.38, 114.15], 13);
+
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        attribution: '© OpenStreetMap contributors',
+                        maxZoom: 19
+                    }).addTo(map);
+
+                    const elevationOptions = {
+                        theme: "skyblue-theme",     
+                        detached: true,             
+                        elevationDiv: "#elevation-container", 
+                        autohide: false,            
+                        position: "bottomright",
+                        imperial: false,            
+                        followMarker: false,        // 防止地圖亂跑
+                        zoomAnimation: false,
+                        waypoints: false,           // 關閉外掛自帶的航點圈圈
+                        summary: false ,
+						downloadLink: false,
+                        responsive: true,
+                        polyline: {
+                            weight: 3,
+                            color: '#3366cc',       
+                            opacity: 0.8
+                        },
+                        marker: {
+                            // 自訂地圖上滑動的乾淨小圓點
+                            icon: L.circleMarker([0, 0], { radius: 5, color: '#fff', fillColor: '#0078FF', fillOpacity: 1, weight: 2 }),
+                            showLabel: false        // 關閉 "419m" 這種標籤數字
+                        }
+                    };
+
+                    const controlElevation = L.control.elevation(elevationOptions).addTo(map);
+
+                    // 👉 填寫你的 GPX 檔案路徑
+                    const gpxFilePath = 'Four Trails Mini_Maclehose Trail.gpx'; 
+
+                    controlElevation.load(gpxFilePath);
+
+                    // 載入後自動縮放視角並修正圖表寬度
+                    controlElevation.on('eledata_loaded', function(e) {
+                        map.fitBounds(e.layer.getBounds(), { padding: [30, 30] });
+                        setTimeout(() => window.dispatchEvent(new Event('resize')), 100);
+                    });
+                }
+            });
+        </script>
+    </body>
 </html>
