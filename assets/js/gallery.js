@@ -335,6 +335,7 @@ class App {
     }
   }
   update() {
+    this.scroll.target += 0.05;
     this.scroll.current = lerp(this.scroll.current, this.scroll.target, this.scroll.ease);
     const direction = this.scroll.current > this.scroll.last ? 'right' : 'left';
     if (this.medias) {
@@ -346,17 +347,21 @@ class App {
   }
   addEventListeners() {
     this.boundOnResize = this.onResize.bind(this);
-    this.boundOnWheel = this.onWheel.bind(this);
     this.boundOnTouchDown = this.onTouchDown.bind(this);
     this.boundOnTouchMove = this.onTouchMove.bind(this);
     this.boundOnTouchUp = this.onTouchUp.bind(this);
+
+    // 視窗縮放依然監聽全域
     window.addEventListener('resize', this.boundOnResize);
-    window.addEventListener('wheel', this.boundOnWheel);
-    window.addEventListener('mousedown', this.boundOnTouchDown);
+
+    // 把「點擊」和「觸控」的起始動作，限定在畫廊容器 (this.container) 內
+    this.container.addEventListener('mousedown', this.boundOnTouchDown);
+    this.container.addEventListener('touchstart', this.boundOnTouchDown, { passive: true });
+
+    // 拖曳過程和放開事件保持在 window 上，這樣你點擊圖片後，滑鼠就算不小心拉到螢幕外面，拖曳也不會中斷
     window.addEventListener('mousemove', this.boundOnTouchMove);
     window.addEventListener('mouseup', this.boundOnTouchUp);
-    window.addEventListener('touchstart', this.boundOnTouchDown);
-    window.addEventListener('touchmove', this.boundOnTouchMove);
+    window.addEventListener('touchmove', this.boundOnTouchMove, { passive: true });
     window.addEventListener('touchend', this.boundOnTouchUp);
   }
 }
@@ -369,7 +374,10 @@ document.addEventListener("DOMContentLoaded", () => {
             bend: 3,                 // 彎曲弧度
             textColor: '#ffffff',    // 字體顏色
             borderRadius: 0.05,      // 圖片圓角
-            font: 'bold 30px "PingFang TC", sans-serif' // 中文字體
+            font: 'bold 30px "PingFang TC", sans-serif', // 中文字體
+            scrollSpeed: 1,
+            scrollEase: 0.05
+
         });
     }
 });
