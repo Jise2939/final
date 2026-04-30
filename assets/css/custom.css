@@ -1,3 +1,4 @@
+
 /* ==========================================
     1. 下拉展開區域的卡片外觀 (居中設計)
     ========================================== */
@@ -377,31 +378,139 @@ to { opacity: 1; transform: translateY(0); }
     padding: 2em 0 10vh;
 }
 
+/* ==========================================
+   卡片原生 Sticky 樣式
+   ========================================== */
 .scroll-stack-card {
+    position: sticky;
     transform-origin: top center;
-    will-change: transform, filter;
-    backface-visibility: hidden;
-    transform-style: preserve-3d;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); /* 柔和的高級陰影 */
+    will-change: transform;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
     width: 100%;
-    margin-bottom: 60px; /* 卡片之間的距離 */
+    
+    /* 🌟 核心魔法 1：產生超長的滾動空間，讓你有時間慢慢欣賞照片牆！ */
+    margin-bottom: 50vh; 
+    
     padding: 3em 3em;
-    border-radius: 20px; /* 圓角卡片 */
+    border-radius: 20px;
     box-sizing: border-box;
     border: 1px solid #eaeaea;
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
-    position: relative;
-    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    
-    /* 確保裡面的文字排版漂亮 */
-    font-size: 1.1em;
-    color: #555;
-    line-height: 1.9;
-    text-align: justify;
+    background: #fff;
+    /* 確保縮放動畫極度平滑 */
+    transition: transform 0.1s ease-out; 
+}
+
+/* 🌟 核心魔法 2：設定每張卡片黏在螢幕上的階梯高度 (間距 75px) */
+.scroll-stack-card:nth-child(1) { top: 15vh; }
+.scroll-stack-card:nth-child(2) { top: calc(15vh + 75px); }
+.scroll-stack-card:nth-child(3) { top: calc(15vh + 150px); }
+.scroll-stack-card:nth-child(4) { top: calc(15vh + 225px); }
+
+/* 讓最後一張卡片也能停留一下 */
+.scroll-stack-end {
+    height: 30vh;
 }
 
 .scroll-stack-end {
     width: 100%;
     height: 1px;
+}
+
+/* ==========================================
+   左右分欄與平移滑入 (居中平移修正版)
+   ========================================== */
+.split-layout {
+    display: flex;
+    align-items: flex-start;
+    position: relative;
+    width: 100%;
+}
+
+.left-content {
+    flex: 0 0 55%; 
+    width: 55%;
+    padding-right: 4em; /* 給中間留點呼吸空間 */
+    
+    /* 🌟 核心魔法：55% 的寬度，加上 22.5% 的左邊距，剛好在 100% 的正中間！ */
+    margin-left: 22.5%; 
+    transition: margin-left 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* 觸發時：抽掉邊距，絲滑滑向左邊 */
+.split-layout.is-split .left-content {
+    margin-left: 0;
+}
+
+.right-sticky {
+    flex: 0 0 45%;
+    width: 45%;
+    position: sticky;
+    top: 15vh;
+    height: 70vh;
+    
+    /* 🌟 預設往右推 100px 並透明，營造視差滑入感 */
+    transform: translateX(100px);
+    opacity: 0;
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    
+    overflow: visible !important; 
+}
+
+/* 觸發時：從右側浮現 */
+.split-layout.is-split .right-sticky {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+/* ==========================================
+   Masonry (瀑布流) 內部樣式
+   ========================================== */
+.list {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto; 
+    padding-bottom: 20px;
+}
+
+.list::-webkit-scrollbar { display: none; }
+.list { -ms-overflow-style: none; scrollbar-width: none; }
+
+.item-wrapper {
+    position: absolute;
+    will-change: transform, width, height, opacity;
+    padding: 12px; 
+    box-sizing: border-box; /* 🌟 確保 Padding 不會撐破容器 */
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    transition: transform 0.4s ease, width 0.4s ease, height 0.4s ease;
+}
+
+.item-wrapper > .item-img {
+    position: relative;
+    background-size: cover;
+    background-position: center center;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.12);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.item-wrapper:hover > .item-img {
+    transform: scale(0.95);
+}
+
+/* 手機版適配 */
+@media (max-width: 900px) {
+    .split-layout { flex-direction: column; }
+    .left-content {
+        flex: 1 1 100%;
+        width: 100%;
+        margin-left: 0 !important; /* 手機版不偏移 */
+        padding-right: 0;
+    }
+    .right-sticky { display: none; }
 }

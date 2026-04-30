@@ -4,6 +4,7 @@
     templated.co @templatedco
     Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
 -->
+	
 <html>
     <head>
         <title>「超載」的郊野公園</title>
@@ -168,59 +169,71 @@
 			</section>
 
 <!-- ==========================================
-     现实问题 (滾動堆疊卡片 Scroll Stack 排版)
+     现实问题 (左右分欄 Asymmetric Sticky Scroll)
      ========================================== -->
 <section id="reality-problems" class="wrapper style1" style="background-color: #f9f9f9; padding: 5em 0;">
-    <div class="container" style="max-width: 900px;">
+    <div class="container" style="max-width: 1200px;">
+		
         
         <!-- 區塊標題 -->
-        <header class="major" style="text-align: center; margin-bottom: 1em;">
+        <header class="major" style="text-align: center; margin-bottom: 3em;">
             <h2 style="font-size: 2.2em; font-weight: bold; color: #222;">游客数量上升带来的现实问题</h2>
             <p style="font-size: 1.1em; color: #888;">“亿万”关注背后的代价：当网红郊野公园遇上安全与垃圾危机</p>
         </header>
 
-        <!-- 🌟 滾動堆疊卡片的核心容器 -->
-        <!-- 設定 use-window-scroll="true" 讓它跟隨整個網頁的滾動 -->
-        <div id="scroll-stack-container" class="scroll-stack-scroller" data-use-window-scroll="true">
-            <div class="scroll-stack-inner">
-                
-                <!-- 💳 卡片 1：安全问题 -->
-                <div class="scroll-stack-card" style="background: #fff;">
-                    <h3 style="color: #222; border-bottom: 2px solid #eaeaea; padding-bottom: 0.5em; margin-bottom: 1em;">01 / 直升机盘旋之下：被打卡掩盖的安全盲区</h3>
-                    <p>2026年4月11日，一架直升机盘旋在西贡上空。一名30岁的内地女子在麦理浩径第三段疑似中暑晕倒，最终被吊起送院，这并非孤例。此前一周，另一名女子在第二段的浪茄湾同样因中暑抽搐昏迷，同样由直升机救走。</p>
-                    <p>麦理浩径第二段与第三段，正是社交媒体上最火的“网红路段”，吸引着大量缺乏行山经验的游客。但他们不知道的是：第二段进出浪茄需要翻越崎岖山径，第三段更以“上坡多、无树荫、体力消耗大”著称。不少游客因为对自己体力认知的错位与打卡的热情，直升机救援成了代价。</p>
-				</div>
+        <!-- 🌟 左右分欄的核心容器 -->
+        <div class="split-layout">
+            
+            <!-- 左側 60%：卡片堆疊區 -->
+            <div id="left-content-area" class="left-content">
+                <div id="scroll-stack-container" class="scroll-stack-scroller" data-use-window-scroll="true">
+                    <div class="scroll-stack-inner">
+                        
+                        <!-- 💳 卡片 1 (移除內建圖片，保持純文字) -->
+                        <div class="scroll-stack-card" style="background: #fff;">
+                            <h3 style="color: #222; border-bottom: 2px solid #eaeaea; padding-bottom: 0.5em; margin-bottom: 1em;">01 / 直升机盘旋之下：被打卡掩盖的安全盲区</h3>
+                            <p>2026年4月11日，一架直升机盘旋在西贡上空。一名30岁的内地女子在麦理浩径第三段疑似中暑晕倒，最终被吊起送院，这并非孤例。</p>
+                            <p>麦理浩径第二段与第三段正是最火的“网红路段”。但他们不知道的是：进出浪茄需翻越崎岖山径，第三段更以“无树荫、消耗大”著称。因为认知错位，直升机救援成了打卡的代价。</p>
+                        </div>
 
-                <!-- 💳 卡片 2：环保问题 -->
-                <div class="scroll-stack-card" style="background: #fff;">
-                    <h3 style="color: #222; border-bottom: 2px solid #eaeaea; padding-bottom: 0.5em; margin-bottom: 1em;">02 / 垃圾与污染：“自己垃圾自己带走”口号的苍白</h3>
-                    <p>人潮涌入的另一面，是郊野公园自然环境的破坏。最新立法会文件显示，2025年全港郊野公园内涉及「乱抛垃圾」的执法个案共44宗，较前一年的10宗大增3.4倍；当中位于西贡东及西贡西郊野公园内的个案，更由2024年的4宗，增至2025年的22宗，升幅达4.5倍。</p>
-                    <p>垃圾问题远不止检控数字能反映。据媒体报道，渔护署义工队联同商界多次发起清理行动，捡拾的垃圾包括即弃餐具、胶樽、甚至露营煮食后的残渣。然而义工的清理速度还是比不上游客的破坏程度。“自己垃圾自己带走”在流量面前显得苍白。</p>
+                        <!-- 💳 卡片 2 -->
+                        <div class="scroll-stack-card" style="background: #fff;">
+                            <h3 style="color: #222; border-bottom: 2px solid #eaeaea; padding-bottom: 0.5em; margin-bottom: 1em;">02 / 垃圾与污染：“自己垃圾自己带走”口号的苍白</h3>
+                            <p>最新立法会文件显示，2025年全港郊野公园涉及「乱抛垃圾」的执法个案大增3.4倍；当中西贡东及西贡西更是激增4.5倍。</p>
+                            <p>据报道，义工队捡拾的垃圾包括即弃餐具、胶樽甚至露营残渣。义工的清理速度比不上游客的破坏程度。“自己垃圾自己带走”在流量面前显得苍白。</p>
+                        </div>
+
+                        <!-- 💳 卡片 3 -->
+                        <div class="scroll-stack-card" style="background: #fff;">
+                            <h3 style="color: #222; border-bottom: 2px solid #eaeaea; padding-bottom: 0.5em; margin-bottom: 1em;">03 / 生态边界模糊：树木、野猪与脆弱的珊瑚</h3>
+                            <p><strong>🌳 树木破坏：</strong>小红书兴起“抱树打卡”潮流，导致部分树枝出现结构性损坏，现场甚至“排队抱树”。</p>
+                            <p><strong>🐗 野猪扰民：</strong>人为喂食提供了稳定食物来源，使野猪逐渐依赖人类，失去畏惧甚至主动抢夺食物，行为更具攻击性。</p>
+                            <p><strong>🪸 珊瑚践踏：</strong>游客下海导致践踏珊瑚。一次踩踏即可对需数十年生长的脆弱珊瑚造成不可逆破坏。</p>
+                        </div>
+
+                        <!-- 💳 卡片 4 -->
+                        <div class="scroll-stack-card" style="background: #fff;">
+                            <h3 style="color: #222; border-bottom: 2px solid #eaeaea; padding-bottom: 0.5em; margin-bottom: 1em;">04 / 承载力超负荷：配套设施面临的巨大考验</h3>
+                            <ul style="padding-left: 1.5em; color: #555; line-height: 1.9;">
+                                <li><strong>🚻 厕所大排长龙：</strong> 高峰期女厕门前排满长队，引发卫生隐忧。</li>
+                                <li><strong>🚰 补水站极度匮乏：</strong> 麦径第二段13.5公里却只有北潭凹1个水站。</li>
+                                <li><strong>🏕️ 营地爆满：</strong> 露营打卡文化兴起导致违规扎营，加剧管理压力。</li>
+                            </ul>
+                        </div>
+
+                        <div class="scroll-stack-end"></div>
+                    </div>
                 </div>
-
-                <!-- 💳 卡片 3：生态问题 -->
-                <div class="scroll-stack-card" style="background: #fff;">
-                    <h3 style="color: #222; border-bottom: 2px solid #eaeaea; padding-bottom: 0.5em; margin-bottom: 1em;">03 / 生态边界模糊：树木、野猪与脆弱的珊瑚</h3>
-                    <p><strong>🌳 树木破坏：</strong>近期小红书兴起“抱树打卡”潮流，导致部分树枝出现明显下垂甚至结构性损坏。现场甚至出现“排队抱树”的情况。</p>
-                    <p><strong>🐗 野猪扰民：</strong>垃圾与人为喂食提供了稳定食物来源，使野猪逐渐依赖人类，失去对人的畏惧甚至主动抢夺食物，行为变得更具攻击性。</p>
-                    <p><strong>🪸 珊瑚践踏：</strong>游客活动延伸至海岸，出现践踏珊瑚、挖掘海洋生物等行为。一次踩踏即可对需数十年生长的脆弱珊瑚造成不可逆破坏。</p>
-                </div>
-
-                <!-- 💳 卡片 4：场地运营问题 -->
-                <div class="scroll-stack-card" style="background: #fff;">
-                    <h3 style="color: #222; border-bottom: 2px solid #eaeaea; padding-bottom: 0.5em; margin-bottom: 1em;">04 / 承载力超负荷：配套设施面临的巨大考验</h3>
-                    <ul style="padding-left: 1.5em; color: #555; line-height: 1.9;">
-                        <li style="margin-bottom: 0.8em;"><strong>🚻 厕所大排长龙：</strong> 沿途公厕数量有限，在节假日及周末高峰期，尤其是女厕门口经常排满长队，引发卫生隐忧。</li>
-                        <li style="margin-bottom: 0.8em;"><strong>🚰 补水站极度匮乏：</strong> 麦理浩径第二段整段约13.5公里，却只有北潭凹（Pak Tam Au）1个官方加水站。在炎热天气下，这远低于安全徒步的需求。</li>
-                        <li><strong>🏕️ 营地爆满：</strong> 随着露营打卡文化兴起，合法营地经常处于爆满状态，导致部分游客违规在非指定区域扎营，进一步加剧了管理难度与生态压力。</li>
-                    </ul>
-                </div>
-
-                <!-- 用來觸發最後一張卡片解除固定的隱形元素 -->
-                <div class="scroll-stack-end"></div>
             </div>
-        </div>
 
+            <!-- 右側 40%：滑入式瀑布流照片牆 (Masonry Gallery) -->
+            <div id="masonry-gallery-container" class="right-sticky masonry-hidden">
+                <div class="list" id="masonry-list">
+                    <!-- 照片牆的項目會由 JS 動態生成 -->
+                </div>
+            </div>
+
+        </div>
     </div>
 </section>
 
