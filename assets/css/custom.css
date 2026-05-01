@@ -1,3 +1,6 @@
+body, h1, h2, h3, h4, h5, h6, p, a {
+    font-family: "Noto Serif TC", serif !important;
+}
 
 /* ==========================================
     1. 下拉展開區域的卡片外觀 (居中設計)
@@ -36,9 +39,6 @@
     position: relative;
 }
 
-/* ==========================================
-    3. BUG 修復：隱藏地圖上的干擾元素
-    ========================================== */
 
 /* 隱藏地圖上的垂直黑線 */
 #map-container svg .mouse-focus-line,
@@ -63,16 +63,14 @@
     stroke: #666 !important; stroke-width: 1px !important;
 }
 
-/* ==========================================
-    4. BUG 修復：扁平化下方圖表外掛
-    ========================================== */
 .elevation-control.leaflet-control {
     background: transparent !important; box-shadow: none !important; border: none !important; 
     margin: 0 !important; padding: 0 !important; width: 100% !important;
 }
 .elevation-control-container { background: transparent !important; }
 .elevation-control.elevation-toggle { display: none !important; }
-.elevation-summary { font-size: 13px; color: #666; margin-top: 15px; text-align: center; }
+.elevation-summary { font-size: 13px; color: #ffffff; margin-top: 15px; text-align: center; }
+
 
 
 /* ==========================================
@@ -214,11 +212,6 @@ to { opacity: 1; transform: translateY(0); }
     }
 }
 
-/* 1. 設定整個區塊的預設中文字體與內文段落 */
-#one {
-    /* 加入優質中文字體庫 (蘋果蘋方、微軟雅黑、思源黑體等)，讓中文字變得更現代、更清晰 */
-    font-family: "PingFang TC", "PingFang SC", "Microsoft YaHei", "Noto Sans TC", sans-serif;
-}
 
 /* 2. 針對「右側長文」的段落設定 */
 #one p {
@@ -244,43 +237,6 @@ to { opacity: 1; transform: translateY(0); }
     letter-spacing: 1px;     
     text-align: center;      /* 確保副標題乖乖置中 */
     margin-bottom: 0;        /* 消除不必要的底部空白 */
-}
-
-
-/* ==========================================
-   Section 1: 採訪影片專屬排版 (完美間距與對齊)
-   ========================================== */
-
-.interview-layout {
-    display: flex;
-    align-items: center;       /* 讓左右垂直置中對齊 */
-    justify-content: space-between; /* 確保左右靠邊 */
-    gap: 5em;                  /* 🌟 關鍵魔法：強制在中間拉開 5em 的超大距離！ */
-}
-
-/* 左邊文字佔比 */
-.interview-layout .text-col {
-    flex: 0 0 38%;             /* 限制文字區塊只佔 38% */
-}
-
-/* 右邊影片佔比 */
-.interview-layout .video-col {
-    flex: 0 0 55%;             /* 影片稍微大一點，佔 55% */
-}
-
-/* ==========================================
-   手機版響應式 (螢幕變小時自動變成上下排列)
-   ========================================== */
-@media screen and (max-width: 980px) {
-    .interview-layout {
-        flex-direction: column; /* 變成上下直排 */
-        gap: 3em;               /* 上下間距縮小 */
-    }
-    .interview-layout .text-col,
-    .interview-layout .video-col {
-        flex: 0 0 100%;         /* 各自佔滿 100% 寬度 */
-        width: 100%;
-    }
 }
 
 /* ==========================================
@@ -361,156 +317,140 @@ to { opacity: 1; transform: translateY(0); }
     cursor: grabbing; /* 拖曳中的游標狀態 */
 }
 
-/* ==========================================
-   Scroll Stack (滾動堆疊卡片) 樣式
-   ========================================== */
-.scroll-stack-scroller {
-    position: relative;
-    width: 100%;
-    /* 這裡不用 height: 100%，因為我們讓它跟隨整個網頁滾動 */
-    overflow-x: visible;
-}
-
-.scroll-stack-inner {
-    position: relative;
-    /* padding-top 決定了第一張卡片黏住的位置 (距螢幕頂部的距離) */
-    padding-top: 1em; /* 讓第一張卡片在距離螢幕頂部 20vh 的位置開始黏住 */
-    padding: 2em 0 10vh;
-}
 
 /* ==========================================
-   卡片原生 Sticky 樣式
-   ========================================== */
-.scroll-stack-card {
-    position: sticky;
-    transform-origin: top center;
-    will-change: transform;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-    width: 100%;
-    
-    /* 🌟 核心魔法 1：產生超長的滾動空間，讓你有時間慢慢欣賞照片牆！ */
-    margin-bottom: 50vh; 
-    
-    padding: 3em 3em;
-    border-radius: 20px;
-    box-sizing: border-box;
-    border: 1px solid #eaeaea;
-    background: #fff;
-    /* 確保縮放動畫極度平滑 */
-    transition: transform 0.1s ease-out; 
-}
-
-/* 🌟 核心魔法 2：設定每張卡片黏在螢幕上的階梯高度 (間距 75px) */
-.scroll-stack-card:nth-child(1) { top: 15vh; }
-.scroll-stack-card:nth-child(2) { top: calc(15vh + 75px); }
-.scroll-stack-card:nth-child(3) { top: calc(15vh + 150px); }
-.scroll-stack-card:nth-child(4) { top: calc(15vh + 225px); }
-
-/* 讓最後一張卡片也能停留一下 */
-.scroll-stack-end {
-    height: 30vh;
-}
-
-.scroll-stack-end {
-    width: 100%;
-    height: 1px;
-}
-
-/* ==========================================
-   左右分欄與平移滑入 (居中平移修正版)
+   左右分欄佈局 (卡片與照片牆)
    ========================================== */
 .split-layout {
     display: flex;
     align-items: flex-start;
-    position: relative;
     width: 100%;
+    gap: 4em; 
+    padding-top: 2em;
 }
 
+/* 左側文字區：寬度 55% */
 .left-content {
     flex: 0 0 55%; 
     width: 55%;
-    padding-right: 4em; /* 給中間留點呼吸空間 */
-    
-    /* 🌟 核心魔法：55% 的寬度，加上 22.5% 的左邊距，剛好在 100% 的正中間！ */
-    margin-left: 22.5%; 
-    transition: margin-left 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 2; 
 }
 
-/* 觸發時：抽掉邊距，絲滑滑向左邊 */
-.split-layout.is-split .left-content {
-    margin-left: 0;
-}
-
+/* 右側照片牆區：寬度 45%，並固定在畫面上 */
 .right-sticky {
-    flex: 0 0 45%;
-    width: 45%;
+    flex: 0 0 calc(45% - 4em);
+    width: calc(45% - 4em);
     position: sticky;
     top: 15vh;
-    height: 70vh;
-    
-    /* 🌟 預設往右推 100px 並透明，營造視差滑入感 */
-    transform: translateX(100px);
-    opacity: 0;
-    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-                opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-    
-    overflow: visible !important; 
-}
-
-/* 觸發時：從右側浮現 */
-.split-layout.is-split .right-sticky {
-    transform: translateX(0);
-    opacity: 1;
+    height: 75vh;
 }
 
 /* ==========================================
-   Masonry (瀑布流) 內部樣式
+   卡片堆疊區
+   ========================================== */
+
+#scroll-stack-container {
+    position: relative;
+    /* 給它一個超級高的高度，確保 4 張卡片都有足夠的空間完成堆疊 */
+    min-height: 300vh; 
+}
+
+/* 2. 卡片基礎設定 */
+.scroll-stack-card {
+    position: -webkit-sticky; 
+    position: sticky; 
+    transform-origin: top center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    width: 100%;
+    margin-bottom: 50vh; 
+    padding: 1.5em 3em 3em 3em;
+    border-radius: 20px;
+    box-sizing: border-box;
+    border: 1px solid #eaeaea;
+    background: #fff;
+    transition: opacity 0.3s ease;
+}
+
+.scroll-stack-card:nth-child(1) { 
+    top: 15vh; 
+    z-index: 10; 
+}
+.scroll-stack-card:nth-child(2) { 
+    top: calc(15vh + 75px); 
+    z-index: 20; 
+}
+.scroll-stack-card:nth-child(3) { 
+    top: calc(15vh + 150px); 
+    z-index: 30; 
+}
+.scroll-stack-card:nth-child(4) { 
+    top: calc(15vh + 225px); 
+    z-index: 40; 
+}
+
+/* 4. 底部緩衝區：確保最後一張卡片鎖住後，還有空間看右邊的照片牆 */
+.scroll-stack-end {
+    width: 100%;
+    height: 20vh; 
+}
+
+/* ==========================================
+   瀑布流照片牆樣式 (右側 - 移植自 Masonry 框架)
    ========================================== */
 .list {
     position: relative;
     width: 100%;
-    height: 100%;
-    overflow-y: auto; 
-    padding-bottom: 20px;
+    /* 淡出淡入動畫 */
+    transition: opacity 0.8s ease, height 0.8s ease;
 }
 
-.list::-webkit-scrollbar { display: none; }
-.list { -ms-overflow-style: none; scrollbar-width: none; }
+.list.fade-out {
+    opacity: 0 !important;
+}
 
+/* 圖片包裝層：絕對定位，用 transform 移動[cite: 4] */
 .item-wrapper {
     position: absolute;
-    will-change: transform, width, height, opacity;
-    padding: 12px; 
-    box-sizing: border-box; /* 🌟 確保 Padding 不會撐破容器 */
-    cursor: pointer;
+    will-change: transform, opacity;
+    padding: 6px; /* 圖片之間的間距 */
     top: 0;
     left: 0;
-    transition: transform 0.4s ease, width 0.4s ease, height 0.4s ease;
+    /* 給予絲滑的位移動畫[cite: 4] */
+    transition: transform 1.2s cubic-bezier(0.23, 1, 0.32, 1), opacity 1.2s ease;
 }
 
+/* 實際圖片層[cite: 4] */
 .item-wrapper > .item-img {
     position: relative;
     background-size: cover;
     background-position: center center;
     width: 100%;
     height: 100%;
-    border-radius: 12px;
-    box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.12);
-    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border-radius: 10px;
+    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
+    background-color: #f5f5f5; /* 載入前的底色 */
 }
 
-.item-wrapper:hover > .item-img {
-    transform: scale(0.95);
-}
-
-/* 手機版適配 */
+/* ==========================================
+   手機版適配 (單欄顯示)
+   ========================================== */
 @media (max-width: 900px) {
-    .split-layout { flex-direction: column; }
-    .left-content {
-        flex: 1 1 100%;
-        width: 100%;
-        margin-left: 0 !important; /* 手機版不偏移 */
-        padding-right: 0;
+    .split-layout { 
+        flex-direction: column; 
+        gap: 2em; 
     }
-    .right-sticky { display: none; }
+    .left-content, .right-sticky { 
+        flex: 1 1 100%; 
+        width: 100%; 
+    }
+    .scroll-stack-card {
+        margin-bottom: 2em;
+        position: relative; /* 手機版不堆疊，正常排版 */
+        top: 0 !important;
+    }
+    .right-sticky { 
+        position: relative; /* 手機版不固定 */
+        top: 0; 
+        height: auto;
+    }
 }
