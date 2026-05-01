@@ -335,8 +335,7 @@ to { opacity: 1; transform: translateY(0); }
 
 #scroll-stack-container {
     position: relative;
-    /* 給它一個超級高的高度，確保 4 張卡片都有足夠的空間完成堆疊 */
-    min-height: 300vh; 
+    min-height: 100vh; 
 }
 
 /* 2. 卡片基礎設定 */
@@ -375,7 +374,7 @@ to { opacity: 1; transform: translateY(0); }
 /* 4. 底部緩衝區：確保最後一張卡片鎖住後，還有空間看右邊的照片牆 */
 .scroll-stack-end {
     width: 100%;
-    height: 20vh; 
+    height: 50vh; 
 }
 
 /* ==========================================
