@@ -178,9 +178,6 @@ to { opacity: 1; transform: translateY(0); }
     #parallax-banner p { font-size: 1.1em; }
 }
 
-/* ==========================================
-   第一區塊 (#one) 文字大小與中文字體美化
-   ========================================== */
 
 /* ==========================================
    調整第一區塊 (#one) 的板塊高度與留白
@@ -440,4 +437,53 @@ to { opacity: 1; transform: translateY(0); }
         top: 0; 
         height: auto;
     }
+}
+
+/* ==========================================
+   大幅度放大中間裝飾圖 (#section-divider)
+   ========================================== */
+#section-divider {
+    position: relative;
+    width: 100%;
+    /* 🌟 增加區塊高度，否則圖片變大後會被截斷 */
+    height: 500px;         
+    background: transparent; /* 改為透明，以免擋到底層 body */
+    overflow: visible;     
+    z-index: 5;
+    margin: -100px 0;      /* 🌟 使用負邊距，讓這個區塊與上下區塊重疊，效果更自然 */
+}
+
+/* 左側圖片 (2476) - 放大版 */
+#section-divider::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -50px;           /* 稍微靠左出界 */
+    /* 🌟 使用 vw 讓圖片隨螢幕縮放，或直接設為大像素 */
+    width: 40vw;           
+    height: 600px;
+    max-width: 600px;      /* 限制最大寬度防止過大 */
+    
+    background: url('../../photo/2476.PNG') no-repeat center;
+    background-size: contain;
+    z-index: -1;
+    opacity: 0.9;
+    pointer-events: none;
+}
+
+/* 右側圖片 (2475) - 放大版 */
+#section-divider::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: -80px;          /* 稍微靠右出界 */
+    width: 45vw;           
+    height: 700px;
+    max-width: 800px;      
+    
+    background: url('../../photo/2475.PNG') no-repeat center;
+    background-size: contain;
+    z-index: -1;
+    opacity: 0.9;
+    pointer-events: none;
 }
