@@ -20,7 +20,7 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Cactus+Classical+Serif&family=Noto+Serif+TC:wght@200..900&display=swap" rel="stylesheet">
-        
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     </head>
     <body class="landing">
 
@@ -40,62 +40,50 @@
 		<section id="parallax-banner" style="background-image: url('photo/cover.jpg');">
 			<div class="content">
 				<header>
-					<h2>「超载」的郊野公园</h2>
-					<p>麦理浩径走红给香港带来了什么？</p>
+					<h3 style="font-size: 3em; margin-bottom: 1em;">「超載」的郊野公園</h3>
+					<h2 style="font-size: 4.5em; font-weight: normal;">麥理浩徑走紅給香港帶來了什麼</h2>
 				</header>
 			</div>
 		</section>
 
-<!-- ==========================================
-     開場區塊：「五一」將至與社媒熱潮
-     ========================================== -->
-<section id="may-day-intro" class="wrapper style1 special" style="padding-bottom: 3em;">
-    <div class="container">
-        <header class="major" style="margin-bottom: 1.5em;">
-            <h2>「五一」将至</h2>
-        </header>
-        <!-- 限制段落寬度並置中，讓引言看起來更像雜誌的編按 -->
-        <p style="max-width: 800px; margin: 0 auto; text-align: justify; line-height: 1.9; font-size: 1.1em; color: #444;">
-            社交媒体的“破圈”式传播，将这条昔日属于硬核远足者的荒野路径，变成了大众打卡的新宠。2026年五一假期前夕，社交媒体上关于“麦理浩径徒步”的搜索量再次录得显著增长。
-        </p>
-    </div>
-</section>
-		
-<!-- 🌟 新增：中間過渡裝飾區塊 -->
-<section id="section-divider">
-    <!-- 這裡留空，圖片由 CSS 生成 -->
-</section>
+        <!-- ==========================================
+             🌟 新增區塊：萬宜水庫東壩人流變化 (Scrollytelling)
+             ========================================== -->
+        <section class="dam-intro" style="height: 50vh;" >
+            <p class="dam-intro-text">
+                根據媒體報導，截至5月1日上午10時，已有7.6萬名內地訪客人次訪港。<br>
+                而在近年迅速走紅的西貢萬宜水庫東壩及麥理浩徑一帶，截至中午12時，人流已達1000人以上，並被列為“非常繁忙”水平。 
+            </p>
+        </section>
 
+        <section class="dam-scroll-section" id="damScrollSection" style="margin-top: -5vh;">
+            <div class="dam-sticky-stage">
+                <div class="dam-media-wrap">
+                    <div class="dam-image-wrap">
+                        <!-- 確認圖片路徑是否正確 (例如 images/ 或是 photo/) -->
+                        <img src="photo/万宜水库东坝无人.png" alt="2024年前的东坝">
+                        <img id="damCrowdedImg" class="dam-crowded-img" src="photo/万宜水库东坝有人.png" alt="人群拥挤的东坝">
+                    </div>
+                </div>
 
-<!-- ==========================================
-     Section 1: 採訪紀實 (全寬置中排版)
-     ========================================== -->
-<section id="interview" class="wrapper style1" style="padding-bottom: 3em; padding-top: 3em;">
-    
-    <!-- 限制最大寬度為 900px，並讓內部文字全部置中 -->
-    <div class="container" style="max-width: 900px; text-align: center; background-color: transparent;"> 
+                <div class="dam-text-box dam-t1" id="damText1">
+                    <h2>2024年以前的東壩</h2>
+                    <p>道路仍然空曠，山、水與堤壩構成主要景觀。</p>
+                </div>
 
-        <!-- 上方：標題與導語 -->
-        <header class="major" style="margin-bottom: 1.5em;">
-            <h2 style="font-size: 2.2em; font-weight: bold; color: #222; letter-spacing: 2px;">鏡頭下的麥理浩徑</h2>
-            <p style="font-size: 1.1em; color: #888;">聽聽遠足者與遊客怎麼說</p>
-        </header>
-        
-        <!-- 導語文字 -->
-        <p style="font-size: 1.1em; line-height: 1.9; color: #444; margin-bottom: 3em; text-align: justify; text-align-last: center;">
-            隨著打卡人潮湧入，原本寧靜的自然生態受到了哪些影響？我們走訪了多位前來朝聖的遊客，記錄下這條百年步道面臨的真實挑戰。
-        </p>
+                <div class="dam-text-box dam-t2" id="damText2">
+                    <h2>當人流數字不斷刷新</h2>
+                    <p>這條曾被《國家地理》評為“全球最佳遠足徑之一”的山徑，正在經歷一場前所未有的轉變。</p>
+                </div>
 
-        <!-- 下方：影片區塊 (佔滿 900px 寬度，完美居中) -->
-        <div class="video-container" style="width: 100%; aspect-ratio: 16 / 9; border-radius: 12px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.15); background-color: #00000000; border: 1px solid #eaeaea; margin: 0 auto;">
-            <video style="width: 100%; height: 100%; object-fit: contain;" controls poster="images/video-poster.jpg">
-                <source src="你的影片路徑.mp4" type="video/mp4">
-                您的瀏覽器不支援影片播放。
-            </video>
-        </div>
+                <div class="dam-bottom-highlight" id="damText3">
+                    <p>麥理浩徑已經從“遠足者的路線”，變成“遊客的打卡點”。</p>
+                </div>
 
-    </div>
-</section>
+                <p class="dam-caption">圖像示意：根據萬宜水庫東壩及麥理浩徑假期人流情境製作。</p>
+            </div>
+        </section>
+
 
 <!-- ==========================================
      麥理浩徑介紹 + 地圖 + 3D圖片滾輪
@@ -110,12 +98,14 @@
     <!-- 下半部：文字介紹與地圖按鈕 -->
     <div class="container 75%" style="margin-bottom: 4em;">
         <header class="major" style="text-align: center; margin-bottom: 2em;">
-            <h2>了解麦理浩径</h2>
+            <h2>了解麥理浩徑</h2>
         </header>
         
-        <div style="max-width: 800px; margin: 0 auto; text-align: justify; line-height: 1.9; font-size: 1.1em; color: #444; margin-bottom: 2.5em;">
-            <p>麦理浩径全长100公里，由东向西横跨香港，因其从海岸奇观到全港最高峰的极致地貌跨度，被《国家地理》评为全球二十条最佳远足径之一。</p>
-            <p>对于资深远足者阿强来说，麦理浩径的魅力在于自然粗粝的原始荒野；而对于跟风抵达东坝的游客王小姐来说，最大的落差是“怎么连个自动贩卖机都没有”。</p>
+        <div style="max-width: 800px; margin: 0 auto; text-align: justify; line-height: 1.9; font-size: 1.3em; color: #444; margin-bottom: 2.5em;">
+            <p>作為香港最具代表性的遠足路線之一，麥理浩徑全長約100公里，由西貢延伸至屯門，橫跨多個郊野公園。憑藉其從海岸地貌到高山景觀的多樣性，這條山徑曾被《國家地理》評為全球最佳遠足徑之一。</p>
+            <p>但在這條縱貫香港的山徑之中，並非所有路段都承受著同樣的關注與壓力。</p>
+            <p>本篇報導聚焦於串連萬宜水庫東壩、破邊洲以及浪茄灣的這條山徑。這一段既擁有標誌性的地質景觀與海岸線，也是近年社交媒體上最頻繁出現的“打卡路線”。</p>
+            <p>當線上流量不斷匯聚至這一段路徑，現實中的人流、交通與環境壓力，也在這裡最為集中地顯現出來。</p>
         </div>
         
         <!-- 點擊展開的按鈕 (置中對齊) -->
@@ -132,33 +122,77 @@
 
 </section>
 
+<!-- 🌟 新增：中間過渡裝飾區塊 -->
+<section id="section-divider">
+    <!-- 這裡留空，圖片由 CSS 生成 -->
+</section>
+
+
+<!-- ==========================================
+     Section 1: 採訪紀實 (全寬置中排版)
+     ========================================== -->
+<section id="interview" class="wrapper style1" style="padding-bottom: 3em; padding-top: 3em;">
+    
+    <!-- 限制最大寬度為 900px，並讓內部文字全部置中 -->
+    <div class="container" style="max-width: 900px; text-align: center; background-color: transparent;"> 
+
+        <!-- 上方：標題與導語 -->
+        <header class="major" style="margin-bottom: 3em;">
+            <h2 style="font-size: 2.2em; font-weight: bold; color: #222; letter-spacing: 2px;">誰把麥理浩徑「帶火了」</h2>
+            <p style="font-size: 1.1em; margin-bottom: 3em; color: #888;">2026年4月19日街訪</p>
+        </header>
+
+        <!-- 下方：影片區塊 (佔滿 900px 寬度，完美居中) -->
+        <div class="video-container" style="width: 100%; aspect-ratio: 16 / 9; border-radius: 12px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.15); background-color: #00000000; border: 1px solid #eaeaea; margin: 0 auto;">
+            <video style="width: 100%; height: 100%; object-fit: contain;" controls poster="images/video-poster.jpg">
+                <source src="你的影片路徑.mp4" type="video/mp4">
+                您的瀏覽器不支援影片播放。
+            </video>
+        </div>
+
+        <!-- 導語文字 -->
+        <p style="font-size: 1.3em; line-height: 1.9; color: #000000; margin-top: 5em; text-align: justify; text-align-last: center;">
+            在萬宜水庫東壩，受訪游客中，多數人提到相似的路徑：小紅書、抖音、朋友分享。
+        </p>
+        <p style="font-size: 1.3em; line-height: 1.9; color: #000000; margin-top: 0.1em; text-align: justify; text-align-last: center;">
+            多數人提到打卡拍照是此行的主要目的。現場大多數人並沒有身著登山的裝備。
+        </p>
+        <p style="font-size: 1.3em; line-height: 1.9; color: #000000; margin-top: 0.1em; margin-bottom: 1em; text-align: justify; text-align-last: center;">
+            但當他們真正走上這條山徑時，體驗卻並不完全一樣。
+            <br>“比想像中累很多。”
+            <br>“沒想到沒有補給。”
+            <br>“其實沒太準備。”
+        </p>
+    </div>
+</section>
+
 
 <!-- ==========================================
 	Part 1: 社交媒體現象與數據
 	========================================== -->
 		<section id="social-media" class="wrapper style1">
 			<div class="container" style="max-width: 1100px;">
-        
+    
         <!-- 使用 Flexbox 讓圖文並排，並確保垂直置中 -->
         <div style="display: flex; align-items: center; justify-content: space-between; gap: 4em; flex-wrap: wrap;">
 
             <!-- 左側：文字描述 (佔比約 45%) -->
             <div class="text-col" style="flex: 1 1 45%; min-width: 300px;">
                 <header class="major" style="margin-bottom: 1.5em; text-align: left;">
-                    <h2 style="font-size: 2.2em; font-weight: bold; color: #222; letter-spacing: 2px;">社交媒体的推波助澜</h2>
-                    <p style="font-size: 1.1em; color: #888;">非专业爬山游客数量激增</p>
+                    <h2 style="font-size: 2.2em; font-weight: bold; color: #222; letter-spacing: 2px;">被算法放大的山徑</h2>
+                    <!--<p style="font-size: 1.1em; color: #888;">非专业爬山游客数量激增</p>-->
                 </header>
                 
                 <p style="font-size: 1.1em; line-height: 1.9; color: #444; text-align: justify; margin-bottom: 1.5em;">
-                    打开小红书搜索“麦理浩径”，大量帖文配有调色后的山海风光，标题含有“人生必走”等字眼，并附有拍照攻略。在这些帖文中，不少博主将麦理浩径包装为“逃离城市喧嚣”的理想地，却很少提及路线的实际难度和潜在风险。受此影响，越来越多缺乏远足经验的游客将其列入香港行程。
+                    抖音上的熱度攀升現象同樣顯著。2026年3月至4月28日，「麥理浩徑」話題的日均熱度指數達到5.1萬，較2023年同期增長近<strong>220倍</strong>。
                 </p>
                 
                 <p style="font-size: 1.1em; line-height: 1.9; color: #444; text-align: justify; margin-bottom: 1.5em;">
-                    抖音平台上的热度同样明显。2026年3月至4月28日，“麦理浩径”话题的平均热度指数达到5.1万，<strong>较2023年同期的239增长近220倍</strong>。当线上热度持续转化为线下客流，这条山径的承载能力、游客的人身安全以及沿线的生态保护和管理资源，都面临着新的压力。
+                    漁護署在回應記者有關社交媒體熱度與麥理浩徑人流量關係的查詢中表示：「留意到近年社交媒體上有關香港行山路線的討論持續增加，當中麥理浩徑是最受關注的路線之一。」
                 </p>
 
                 <p style="font-size: 1.1em; line-height: 1.9; color: #444; text-align: justify; margin-bottom: 0;">
-                    这一趋势已引发政府关注。据《星岛头条》报道，渔农自然护理署表示，正研究对个别郊游热点开展承载力评估，并制定相应的访客管理措施。渔护署还透露，计划于今年年中开设官方小红书账号，发布行山安全、远足礼仪与爱护自然等相关内容。
+                    漁護署亦指出，他們一直密切「監察社交媒體動態」，以作為「評估人流走向、識別潛在風險及調配資源」的參考。其亦計劃於今年年中開設官方小紅書帳號，在介紹香港自然風光與郊遊路線的同時，發布行山安全、遠足禮儀與愛護自然等相關內容。
                 </p>
             </div>
 
@@ -176,6 +210,57 @@
 			</section>
 
 <!-- ==========================================
+     Part 2: 流量與數據
+     ========================================== -->
+<section id="traffic-data" class="wrapper style1">
+    <div class="container" style="max-width: 1100px;">
+
+        <!-- 使用 Flexbox 讓圖文並排 -->
+        <!-- 🌟 下半部區塊：調整了與上方的間距，並放大了左側圖表比例 -->
+    <!-- 【修改點 1】加上 margin-top: 1em; 來縮小與上半部的距離 (如果您覺得還不夠近，可以改成 0 甚至 -2em) -->
+   <div style="display: flex; align-items: center; justify-content: space-between; gap: 4em; flex-wrap: wrap; margin-top: -5em;">
+
+    <!-- 🌟 左側：Chart.js 人流圖表卡片 -->
+    <!-- 【修改點 2】把 flex 比例從 45% 調大到 58%，讓圖表佔據更多寬度 -->
+    <!-- 【修改點 3】把 padding 從 2em 縮小到 1.5em，釋放卡片內部空間給圖表 -->
+    <div class="chart-col" style="flex: 1 1 52%; min-width: 350px; max-width: 100%; box-sizing: border-box; background: #fff; padding: 1.5em; border-radius: 12px; ">
+        
+        <h3 style="text-align: center; font-size: 1.2em; margin-bottom: 0.3em; font-weight: bold; color: #222; text-transform: none;">万宜水库东坝人流变化（周末及公众假期）</h3>
+        <div style="text-align: center; color: #888; font-size: 0.9em; margin-bottom: 1.5em;">2025年1月 – 2026年2月</div>
+        
+        <!-- Chart.js 畫布 -->
+        <canvas id="barChart"></canvas>
+        
+        <div style="margin-top: 1.5em; font-size: 0.95em; color: #666; line-height: 1.7; text-align: justify;">
+            <strong style="color: #d8b63ba7;">資料洞察：</strong>夏季（6–9月）人流明显较低，而11月达到全年高峰（2400人次），显示人流压力具有显著季节性波动。
+        </div>
+    </div>
+
+    <!-- 🌟 右側：文字區 -->
+    <!-- 【修改點 4】把 flex 比例從 45% 縮小到 38%，把空間讓給左邊的圖表 -->
+    <div class="text-col" style="flex: 1 1 38%; min-width: 300px;">
+        <header class="major" style="margin-bottom: 1.5em; text-align: left;">
+            <h2 style="font-size: 2.2em; font-weight: bold; color: #222; letter-spacing: 2px;">當流量變成人流</h2>
+        </header>
+        
+        <p style="font-size: 1.1em; line-height: 1.9; color: #444; text-align: justify; margin-bottom: 1.5em;">
+            與社交媒體熱度同步增長的，是現實中的人流。
+        </p>
+        
+        <p style="font-size: 1.1em; line-height: 1.9; color: #444; text-align: justify; margin-bottom: 1.5em;">
+            漁護署數據顯示，萬宜水庫東壩一帶的訪客數量在假期期間顯著上升，成為全港最繁忙的郊野入口之一。
+        </p>
+
+        <p style="font-size: 1.1em; line-height: 1.9; color: #444; text-align: justify; margin-bottom: 0;">
+            當線上「種草」不斷發生，線下的山徑，也開始承受前所未有的壓力。
+        </p>
+    </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ==========================================
      现实问题 (左右分欄 Asymmetric Sticky Scroll)
      ========================================== -->
 <section id="reality-problems" class="wrapper style1" style="background-color: #f9f9f9; padding: 5em 0;">
@@ -184,8 +269,8 @@
         
         <!-- 區塊標題 -->
         <header class="major" style="text-align: center; margin-bottom: 3em;">
-            <h2 style="font-size: 2.2em; font-weight: bold; color: #222;">游客数量上升带来的现实问题</h2>
-            <p style="font-size: 1.1em; color: #888;">“亿万”关注背后的代价：当网红郊野公园遇上安全与垃圾危机</p>
+            <h2 style="font-size: 2.5em; font-weight: bold; color: #222;">「極量」關注引發的安全問題</h2>
+            <p style="font-size: 1.1em; margin-top: 1.5em; color: #0d0d0d;">“在許多社交媒體的帖文中，不少博主将麦理浩径包装为“逃离城市喧嚣”的理想地，却很少提及路线的实际难度和潜在风险。</p>
         </header>
 
         <!-- 🌟 左右分欄的核心容器 -->
@@ -482,5 +567,66 @@
 		<!-- 🌟 關鍵：因為腳本裡面使用了 import，所以必須加上 type="module" -->
 		<script type="module" src="assets/js/gallery.js"></script>
 		<script src="assets/js/scroll-stack.js"></script>
+
+        <!-- 🌟 引入新的：萬宜水庫東壩滾動控制腳本 -->
+        <script src="assets/js/intro.js"></script>
+
+        <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const ctx = document.getElementById('barChart');
+            if (!ctx) return;
+
+            const labels = ['2025-01','02','03','04','05','06','07','08','09','10','11','12','2026-01','02'];
+            const data = [1900, 1500, 1900, 1100, 1500, 800, 500, 700, 900, 1500, 2400, 1700, 1900, 1800];
+
+            // 設置顏色：6-9月淡藍，其餘深藍
+            const backgroundColors = data.map((v, i) => {
+                // 6月(5), 7月(6), 8月(7), 9月(8)
+                if (i >= 5 && i <= 8) {
+                    return 'rgba(100, 181, 246, 0.6)'; // 淺藍
+                } else {
+                    return 'rgba(25, 118, 210, 0.9)';   // 深藍 (配合您網頁的主題色)
+                }
+            });
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: data,
+                        backgroundColor: backgroundColors,
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.raw + " 人次";
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: '#f0f0f0' }
+                        },
+                        x: {
+                            grid: { display: false }
+                        }
+                    },
+                    animation: {
+                        duration: 1200
+                    }
+                }
+            });
+        });
+</script>
+
     </body>
 </html>
