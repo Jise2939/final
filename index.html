@@ -21,12 +21,13 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Cactus+Classical+Serif&family=Noto+Serif+TC:wght@200..900&display=swap" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://www.youtube.com/iframe_api"></script>
     </head>
     <body class="landing">
 
         <!-- Header -->
         <header id="header" class="alt">
-            <h1><strong><a href="index.html">Data Story</a></strong> by LMWXMY</h1>
+            <h1 style="color: #ffffff;">By LMWXMYL</h1>
             <nav id="nav">
                 <ul>
                     <p><a href="generic.html">English</a></p>
@@ -47,11 +48,11 @@
 		</section>
 
         <!-- ==========================================
-             🌟 新增區塊：萬宜水庫東壩人流變化 (Scrollytelling)
+             萬宜水庫東壩人流變化 (Scrollytelling)
              ========================================== -->
         <section class="dam-intro" style="height: 50vh;" >
-            <p class="dam-intro-text">
-                根據媒體報導，截至5月1日上午10時，已有7.6萬名內地訪客人次訪港。<br>
+            <p class="dam-intro-text" style="max-width: 1150px;">
+                根據媒體報導，截至5月1日上午10時，該日已累計7.6萬名內地訪港訪客人次。<br>
                 而在近年迅速走紅的西貢萬宜水庫東壩及麥理浩徑一帶，截至中午12時，人流已達1000人以上，並被列為“非常繁忙”水平。 
             </p>
         </section>
@@ -139,16 +140,29 @@
         <!-- 上方：標題與導語 -->
         <header class="major" style="margin-bottom: 3em;">
             <h2 style="font-size: 2.2em; font-weight: bold; color: #222; letter-spacing: 2px;">誰把麥理浩徑「帶火了」</h2>
-            <p style="font-size: 1.1em; margin-bottom: 3em; color: #888;">2026年4月19日街訪</p>
+            <p style="font-size: 1.5em; margin-top: 2em; margin-bottom: 3em; color: #888;">2026年4月19日街訪</p>
         </header>
+        <!-- 下方：影片區塊 (API 方案) -->
+       <div class="video-wrapper" style="max-width: 900px; margin: 0 auto; width: 100%;">
+       <div id="youtube-player-container" class="video-container" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; box-shadow: 0 15px 35px rgba(0,0,0,0.15); background-color: #000; border: 1px solid #eaeaea; cursor: pointer;">
+        
+        <!-- API 會將此 div 自動替換為影片 -->
+        <div id="player" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></div>
 
-        <!-- 下方：影片區塊 (佔滿 900px 寬度，完美居中) -->
-        <div class="video-container" style="width: 100%; aspect-ratio: 16 / 9; border-radius: 12px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.15); background-color: #00000000; border: 1px solid #eaeaea; margin: 0 auto;">
-            <video style="width: 100%; height: 100%; object-fit: contain;" controls poster="images/video-poster.jpg">
-                <source src="你的影片路徑.mp4" type="video/mp4">
-                您的瀏覽器不支援影片播放。
-            </video>
+        <!-- 自定義封面圖層 -->
+        <div id="video-poster" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url('video/4月29日街头采访-封面.jpg') no-repeat center center; background-size: cover; z-index: 10; display: flex; align-items: center; justify-content: center;">
+            <!-- 播放按鈕 -->
+            <div style="width: 70px; height: 70px; background: rgba(217, 83, 79, 0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                <div style="width: 0; height: 0; border-top: 15px solid transparent; border-bottom: 15px solid transparent; border-left: 25px solid white; margin-left: 5px;"></div>
+            </div>
         </div>
+        
+    </div>
+</div>
+
+<!-- 引入 YouTube API 腳本 -->
+<script src="https://www.youtube.com/iframe_api"></script>
+
 
         <!-- 導語文字 -->
         <p style="font-size: 1.3em; line-height: 1.9; color: #000000; margin-top: 5em; text-align: justify; text-align-last: center;">
@@ -261,152 +275,341 @@
 </section>
 
 <!-- ==========================================
-     现实问题 (左右分欄 Asymmetric Sticky Scroll)
+     問題 01：安全問題 (單欄沉浸式排版)
      ========================================== -->
-<section id="reality-problems" class="wrapper style1" style="background-color: #f9f9f9; padding: 5em 0;">
-    <div class="container" style="max-width: 1200px;">
-		
-        
-        <!-- 區塊標題 -->
-        <header class="major" style="text-align: center; margin-bottom: 3em;">
-            <h2 style="font-size: 2.5em; font-weight: bold; color: #222;">「極量」關注引發的安全問題</h2>
-            <p style="font-size: 1.1em; margin-top: 1.5em; color: #0d0d0d;">“在許多社交媒體的帖文中，不少博主将麦理浩径包装为“逃离城市喧嚣”的理想地，却很少提及路线的实际难度和潜在风险。</p>
+<section id="problem-1" class="wrapper style1" style="background-color: #fff; padding-bottom: 4em; padding-top: 4em;">
+    
+    <!-- 標題與第一段文字：引發安全問題與救援事件 -->
+    <div class="container" style="max-width: 850px;">
+        <header class="major" style="margin-bottom: 2em; text-align: left;">
+            <span style="font-size: 3em; font-weight: 900; color: #f0f0f0; display: block; margin-bottom: -15px;">01</span>
+            <h2 style="font-size: 2.2em; font-weight: bold; color: #222;">「極量」關注的背後引發的安全問題</h2>
         </header>
 
-        <!-- 🌟 左右分欄的核心容器 -->
-        <div class="split-layout">
+        <p style="font-size: 1.15em; line-height: 1.9; color: #444; text-align: justify;">在許多社交媒體的帖文中，不少博主將麥理浩徑包裝為“逃離城市喧囂”的理想地，卻很少提及路線的實際難度和潛在風險。</p>
+        
+        <p style="font-size: 1.15em; line-height: 1.9; color: #444; text-align: justify;">2026年4月11日，一架直升機盤旋在西貢上空。一名30歲的內地女子在麥理浩徑第三段疑似中暑暈倒，最終被吊起送院，這並非孤例。如視頻所示，2026年4月19日，另一名女子在第二段前往浪茄灣途中同樣因中暑無法繼續前進，被直升機救走。</p>
+    </div>
+
+    <!-- 🌟 插入視頻：直升機救援畫面 -->
+    <div class="container" style="max-width: 1000px; margin: 3em auto;">
+        <!-- 請將 src 替換為您的實際影片路徑 -->
+        <video autoplay loop muted playsinline style="width: 100%; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.08);">
+            <source src="photo/helicopter-rescue.mp4" type="video/mp4">
+            您的瀏覽器不支援影片標籤。
+        </video>
+        <p style="text-align: center; color: #888; font-size: 0.95em; margin-top: 1em;">2026年4月，直升機在麥理浩徑進行緊急救援。</p>
+    </div>
+
+    <!-- 第二段文字：網紅打卡與真實路況的落差 -->
+    <div class="container" style="max-width: 850px;">
+        <p style="font-size: 1.15em; line-height: 1.9; color: #444; text-align: justify;">麥理浩徑第二段與第三段，正是社交媒體上最火的“網紅路段” —— 萬宜水庫的藍色、標誌性的打卡路標、浪茄灣的沙灘吸引著大量遊客慕名而來。一位廣州遊客在接受採訪時表示，自己專程前來，就是為了親眼看看破邊洲獨特的地理奇觀。</p>
+        
+        <p style="font-size: 1.15em; line-height: 1.9; color: #444; text-align: justify;">然而，進出浪茄灣需要翻越崎嶇山徑，而第三段更以<strong style="color: #d9534f;">“上坡多、無樹蔭、體力消耗大”</strong>著稱。不少遊客因為對自己體力認知的錯位以及打卡的熱情，直升機救援成了代價。</p>
+    </div>
+
+    <!-- 🌟 插入照片：崎嶇路段 或 官方無人機執法 -->
+    <div class="container" style="max-width: 1000px; margin: 3em auto;">
+        <!-- 請將 src 替換為您的實際照片路徑 -->
+        <img src="photo/trail-danger.jpg" alt="麥理浩徑崎嶇路況或無人機執法" style="width: 100%; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.08);">
+        <p style="text-align: center; color: #888; font-size: 0.95em; margin-top: 1em;">缺乏遮蔽的陡峭山徑與實際體能消耗往往被社交媒體忽略。</p>
+    </div>
+
+    <!-- 第三段文字：官方應對措施 -->
+    <div class="container" style="max-width: 850px;">
+        <p style="font-size: 1.15em; line-height: 1.9; color: #444; text-align: justify; margin-bottom: 0;">針對上述情況，根據香港01報導，漁護署已在破邊洲觀景台加裝額外圍欄，並於五一假期期間使用具備廣播功能的無人機在上空監察，提醒遊客切勿跨過圍欄。</p>
+    </div>
+
+</section>
+
+<!-- ==========================================
+     問題 02：垃圾與污染 (左表格、右文字環繞排版)
+     ========================================== -->
+<section id="problem-2" class="wrapper style1" style="background-color: #fafafa; padding-bottom: 4em; padding-top: 4em;">
+    
+    <div class="container" style="max-width: 850px;">
+        <header class="major" style="margin-bottom: 2em; text-align: left;">
+            <span style="font-size: 3em; font-weight: 900; color: #e0e0e0; display: block; margin-bottom: -15px;">02</span>
+            <h2 style="font-size: 2.2em; font-weight: bold; color: #222;">人潮湧入的另一面：自然環境的破壞</h2>
+        </header>
+
+        <p style="font-size: 1.15em; line-height: 1.9; color: #444; text-align: justify;">據《香港01》報導，漁護署數據顯示今年復活節及清明節一連5日長假期期間，署方與西貢東郊野公園、包括東壩及熱門露營地點，作出共18宗執法個案，涉及亂拋垃圾和非法露營等，並發出共418次口頭勸喻。據星島頭條、香港01等多家媒體報導，漁護署義工隊聯同商界多次發起清理行動，撿拾的垃圾包括即棄餐具、膠樽、甚至露營煮食後的殘渣。</p>
+
+        <!-- 🌟 文本包圍區塊開始 -->
+        <div style="clear: both; overflow: hidden; margin-top: 2em;">
             
-            <!-- 左側 60%：卡片堆疊區 -->
-            <div id="left-content-area" class="left-content">
-                <div id="scroll-stack-container" class="scroll-stack-scroller" data-use-window-scroll="true">
-                    <div class="scroll-stack-inner">
-                        
-                        <!-- 💳 卡片 1 (移除內建圖片，保持純文字) -->
-                        <div class="scroll-stack-card" style="background: #fff;">
-                            <h3 style="color: #222; border-bottom: 2px solid #eaeaea; padding-bottom: 0.5em; margin-bottom: 1em;">01 / 直升机盘旋之下：被打卡掩盖的安全盲区</h3>
-                            <p>2026年4月11日，一架直升机盘旋在西贡上空。一名30岁的内地女子在麦理浩径第三段疑似中暑晕倒，最终被吊起送院，这并非孤例。</p>
-                            <p>麦理浩径第二段与第三段正是最火的“网红路段”。但他们不知道的是：进出浪茄需翻越崎岖山径，第三段更以“无树荫、消耗大”著称。因为认知错位，直升机救援成了打卡的代价。</p>
-                        </div>
-
-                        <!-- 💳 卡片 2 -->
-                        <div class="scroll-stack-card" style="background: #fff;">
-                            <h3 style="color: #222; border-bottom: 2px solid #eaeaea; padding-bottom: 0.5em; margin-bottom: 1em;">02 / 垃圾与污染：“自己垃圾自己带走”口号的苍白</h3>
-                            <p>最新立法会文件显示，2025年全港郊野公园涉及「乱抛垃圾」的执法个案大增3.4倍；当中西贡东及西贡西更是激增4.5倍。</p>
-                            <p>据报道，义工队捡拾的垃圾包括即弃餐具、胶樽甚至露营残渣。义工的清理速度比不上游客的破坏程度。“自己垃圾自己带走”在流量面前显得苍白。</p>
-                        </div>
-
-                        <!-- 💳 卡片 3 -->
-                        <div class="scroll-stack-card" style="background: #fff;">
-                            <h3 style="color: #222; border-bottom: 2px solid #eaeaea; padding-bottom: 0.5em; margin-bottom: 1em;">03 / 生态边界模糊：树木、野猪与脆弱的珊瑚</h3>
-                            <p><strong>🌳 树木破坏：</strong>小红书兴起“抱树打卡”潮流，导致部分树枝出现结构性损坏，现场甚至“排队抱树”。</p>
-                            <p><strong>🐗 野猪扰民：</strong>人为喂食提供了稳定食物来源，使野猪逐渐依赖人类，失去畏惧甚至主动抢夺食物，行为更具攻击性。</p>
-                            <p><strong>🪸 珊瑚践踏：</strong>游客下海导致践踏珊瑚。一次踩踏即可对需数十年生长的脆弱珊瑚造成不可逆破坏。</p>
-                        </div>
-
-                        <!-- 💳 卡片 4 -->
-                        <div class="scroll-stack-card" style="background: #fff;">
-                            <h3 style="color: #222; border-bottom: 2px solid #eaeaea; padding-bottom: 0.5em; margin-bottom: 1em;">04 / 承载力超负荷：配套设施面临的巨大考验</h3>
-                                <p><strong>🚻 厕所大排长龙：</strong> 高峰期女厕门前排满长队，引发卫生隐忧。</p>
-                                <p><strong>🚰 补水站极度匮乏：</strong> 麦径第二段13.5公里却只有北潭凹1个水站。</p>
-                                <p><strong>🏕️ 营地爆满：</strong> 露营打卡文化兴起导致违规扎营，加剧管理压力。</p>
-                        </div>
-
-                        <div class="scroll-stack-end"></div>
-                    </div>
-                </div>
+            <!-- 左側：浮動的小型三線表 -->
+            <div style="float: left; width: 360px; max-width: 100%; margin: 0.5em 2.5em 1em 0;">
+                <h3 style="font-size: 1.1em; font-weight: bold; color: #222; margin-bottom: 0.5em; text-align: center;">麥理浩徑或附近範圍執法個案(宗)</h3>
+                <p style="font-size: 0.85em; color: #888; margin-bottom: 1em; text-align: center; line-height: 1.5;">過去三年，全港郊野公園涉亂拋垃圾及非法生火分別為133宗及103宗。</p>
+                
+                <table style="width: 100%; border-collapse: collapse; font-size: 1.05em; color: #333; border-top: 2px solid #222; border-bottom: 2px solid #222;">
+                    <thead>
+                        <tr style="border-bottom: 1px solid #222;">
+                            <th style="padding: 0.8em 0.2em; color: #222; font-weight: bold; text-align: left;">年份</th>
+                            <th style="padding: 0.8em 0.2em; color: #222; font-weight: bold; text-align: center;">亂拋垃圾</th>
+                            <th style="padding: 0.8em 0.2em; color: #222; font-weight: bold; text-align: center;">非法生火</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="padding: 0.8em 0.2em; text-align: left;">2023</td>
+                            <td style="padding: 0.8em 0.2em; text-align: center;">0</td>
+                            <td style="padding: 0.8em 0.2em; text-align: center;">13</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.8em 0.2em; text-align: left;">2024</td>
+                            <td style="padding: 0.8em 0.2em; text-align: center;">2</td>
+                            <td style="padding: 0.8em 0.2em; text-align: center;">10</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.8em 0.2em; text-align: left;">2025</td>
+                            <td style="padding: 0.8em 0.2em; text-align: center;">16</td>
+                            <td style="padding: 0.8em 0.2em; text-align: center;">10</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.8em 0.2em; text-align: left; font-weight: bold; color: #d9534f;">2026.3</td>
+                            <td style="padding: 0.8em 0.2em; font-weight: bold; color: #d9534f; text-align: center;">61</td>
+                            <td style="padding: 0.8em 0.2em; font-weight: bold; color: #d9534f; text-align: center;">12</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
-            <!-- 右側 40%：滑入式瀑布流照片牆 (Masonry Gallery) -->
-            <div id="masonry-gallery-container" class="right-sticky masonry-hidden">
-                <div class="list" id="masonry-list">
-                    <!-- 照片牆的項目會由 JS 動態生成 -->
-                </div>
-            </div>
+            <!-- 右側：自然環繞的文字 -->
+            <p style="font-size: 1.15em; line-height: 1.9; color: #444; text-align: justify;">據立法會文件顯示，2025年全港郊野公園內涉及“亂拋垃圾”的執法個案共42宗，較2024年的7宗大增5倍；當中位於西貢東郊野公園內的個案，由2024年的1宗增至2025年的20宗。</p>
+            
+            <p style="font-size: 1.15em; line-height: 1.9; color: #444; text-align: justify;">漁護署數據顯示，今年截至3月，麥理浩徑或附近範圍的關於亂拋垃圾的執法個案已上升至61宗。非法生火的問題同樣值得注意，自2023年起至2026年該案例浮動在10個案左右，而非法生火是導致森林火災的直接原因之一。</p>
 
         </div>
+        <!-- 文本包圍區塊結束 -->
+
     </div>
 </section>
 
 <!-- ==========================================
-     治理對標：麥理浩徑 vs 富士山 (三欄卡片排版)
+     問題 03：生态问题 (單欄沉浸式排版)
      ========================================== -->
-<section id="comparison" class="wrapper style1" style="padding: 5em 0; background-color: #fff;">
+<section id="problem-3" class="wrapper style1" style="background-color: #fff; padding-bottom: 4em; padding-top: 4em;">
+    
+    <div class="container" style="max-width: 850px;">
+        <header class="major" style="margin-bottom: 2em; text-align: left;">
+            <span style="font-size: 3em; font-weight: 900; color: #f0f0f0; display: block; margin-bottom: -15px;">03</span>
+            <h2 style="font-size: 2.2em; font-weight: bold; color: #222;">模糊的生态边界：树木、野猪与脆弱的珊瑚</h2>
+        </header>
+
+        <!-- 樹木破壞 -->
+        <h4 style="color: #d9534f; font-weight: bold; margin-top: 1.5em;">🌳 （1）树木破坏</h4>
+        <p style="font-size: 1.15em; line-height: 1.9; color: #444; text-align: justify;">社交媒体带来的影响，正在改变郊野公园中的游客行为模式。近期，小红书上兴起“抱树打卡”潮流，不少游客在麦理浩径攀爬树木拍照，甚至模仿明星专辑封面姿势（陈奕迅），在平台上分享并标记相关话题。</p>
+        
+        <!-- 【三張圖片：使用 Grid 網格系統並排】 -->
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin: 2em 0;">
+            <!-- 請替換 src 路徑 -->
+            <img src="photo/tree1.jpg" alt="抱樹打卡1" style="width: 100%; border-radius: 8px; aspect-ratio: 1; object-fit: cover; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+            <img src="photo/tree2.jpg" alt="抱樹打卡2" style="width: 100%; border-radius: 8px; aspect-ratio: 1; object-fit: cover; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+            <img src="photo/tree3.jpg" alt="抱樹打卡3" style="width: 100%; border-radius: 8px; aspect-ratio: 1; object-fit: cover; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+        </div>
+
+        <p style="font-size: 1.15em; line-height: 1.9; color: #444; text-align: justify;">然而，这类行为已对自然环境造成直接影响。由于树木难以承受反复的人体重量，部分树枝已出现明显下垂甚至结构性损坏。尽管相关部门已在现场设置危险警告及围封措施，仍有游客无视提示继续攀爬。现场很多颗树都出现“排队抱树”的情况。</p>
+
+
+        <!-- 野豬 -->
+        <h4 style="color: #d9534f; font-weight: bold; margin-top: 3.5em;">🐗 （2）野猪</h4>
+        <p style="font-size: 1.15em; line-height: 1.9; color: #444; text-align: justify;">随着游客数量上升，野生动物的行为也正在被悄然改变。野猪原本依赖自然环境觅食，但在人流密集的山径附近，垃圾与人为喂食提供了稳定且高能量的食物来源，使其逐渐依赖人类。</p>
+        <p style="font-size: 1.15em; line-height: 1.9; color: #444; text-align: justify;">渔护署指出，频繁接触人类会令野猪失去对人的畏惧，甚至主动接近甚至抢夺食物，行为变得更具攻击性。在额外食物供给下，野猪数量亦可能出现非自然增长，进一步打破生态平衡。当“野生动物”逐渐习惯人类存在，原本清晰的生态边界开始模糊，人与野猪之间的关系也从“偶然相遇”，转变为“持续接触甚至冲突”。</p>
+
+        <!-- 【抖音話題熱度指數截圖】 -->
+        <div style="margin: 2em 0;">
+            <!-- 請替換 src 路徑 -->
+            <img src="photo/douyin-trend.jpg" alt="抖音話題熱度指數截圖" style="width: 100%; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.08);">
+            <p style="text-align: center; color: #888; font-size: 0.95em; margin-top: 1em;">社交媒體上的熱度持續推高現實中的生態壓力</p>
+        </div>
+
+
+        <!-- 珊瑚 -->
+        <h4 style="color: #d9534f; font-weight: bold; margin-top: 3.5em;">🪸 （3）珊瑚</h4>
+        <p style="font-size: 1.15em; line-height: 1.9; color: #444; text-align: justify;">随着麦理浩径走红，游客活动范围逐渐从山径延伸至西贡海岸，对海洋生态的影响亦开始浮现。有环保组织发现，在热门地点如桥咀洲及大浪湾一带，游客下水活动中出现践踏珊瑚、挖掘海洋生物等行为。</p>
+        <p style="font-size: 1.15em; line-height: 1.9; color: #444; text-align: justify;">珊瑚属于极为脆弱的生态系统，生长往往需要数十年，但一次踩踏即可造成不可逆破坏。当大量游客在同一地点反复进入海域，这种影响会被迅速放大。更重要的是，珊瑚不仅是景观，更是海洋生态的基础，其受损将影响鱼类及其他海洋生物的栖息环境。</p>
+
+    </div>
+</section>
+
+<!-- ==========================================
+     問題 04：承載力極限 (單欄沉浸式排版)
+     ========================================== -->
+<section id="problem-4" class="wrapper style1" style="background-color: #fff; padding-bottom: 4em;">
+    
+    <!-- 上半部文字：廁所、水站與營地背景 -->
+    <div class="container" style="max-width: 850px;">
+        <header class="major" style="margin-bottom: 2em; text-align: left;">
+            <span style="font-size: 3em; font-weight: 900; color: #f0f0f0; display: block; margin-bottom: -15px;">04</span>
+            <h2 style="font-size: 2.2em; font-weight: bold; color: #222;">承载力极限：场地营运与设施压力</h2>
+        </header>
+
+        <h4 style="color: #d9534f; font-weight: bold; margin-top: 1.5em;">🚻 （1）厕所很少</h4>
+        <p style="font-size: 1.15em; line-height: 1.9; color: #444;">尤其是女厕门口排满了长队。</p>
+
+        <h4 style="color: #d9534f; font-weight: bold; margin-top: 2em;">🚰 （2）补水站极度匮乏</h4>
+        <p style="font-size: 1.15em; line-height: 1.9; color: #444;">北潭凹（Pak Tam Au）有一个加水站。麦理浩径二段整段约13.5公里，却<strong>只有 1 个官方水站</strong>。</p>
+        <!-- 【插入水站图片】 -->
+        <div style="margin: 2em 0;">
+            <img src="photo/water-station.jpg" alt="水站排隊" style="width: 100%; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.08);">
+        </div>
+
+        <h4 style="color: #d9534f; font-weight: bold; margin-top: 3em;">🏕️ （3）营地爆满问题</h4>
+        <p style="font-size: 1.15em; line-height: 1.9; color: #444; text-align: justify;">根据渔护署资料，咸田湾及西湾营地属于大型露营地，建议可容纳超过50个营位。現時除了荃錦營地需要預約外，其他所有指定露營地點都是按「先到先得」原則供訪客使用，所以漁護署沒有備存相關營地的最高帳篷數目及最高留宿人數等資料。</p>
+        <p style="font-size: 1.15em; line-height: 1.9; color: #444; text-align: justify;">以2026年农历新年正月初二数据举例，当日咸田湾营地有450顶帐篷，西湾营地有135顶帐篷。</p>
+    </div>
+
+    <!-- 🌟 中間插入全寬度：帳篷超載可視化 -->
+    <div id="campSection" style="position: relative; height: 320vh; background: linear-gradient(180deg, #f3fbff 0%, #ffffff 100%); margin: 4em 0;">
+        <div style="position: sticky; top: 0; height: 100vh; overflow: hidden; display: flex; align-items: center; justify-content: center; padding: 0 2vw;">
+            <div style="width: min(900px, 100%);">
+                
+                <div style="text-align: center; margin-bottom: 2em;">
+                    <h3 style="margin: 0 0 8px; font-size: 1.8em; font-weight: bold; color: #222;">咸田湾营地超载可视化</h3>
+                    <p style="margin: 0 auto; color: #666;">向下滚动，查看 400 顶额外帐篷如何填满营地</p>
+                </div>
+
+                <div class="stats-row">
+                    <div class="stat-card blue">
+                        <div class="label">官方建议容量</div>
+                        <div class="value">50</div>
+                    </div>
+                    <div class="stat-card red">
+                        <div class="label">额外涌入帐篷</div>
+                        <div class="value" id="redCount">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="label">目前总数</div>
+                        <div class="value" id="totalCount">50</div>
+                    </div>
+                </div>
+
+                <div class="camp-board">
+                    <div class="capacity-line"></div>
+                    <div class="capacity-label">蓝色＝官方建议容量 50 个营位</div>
+                    <div class="tent-field" id="tentField"></div>
+                </div>
+
+                <div class="progress-text" id="progressText" style="text-align: center; margin-top: 1.5em; font-size: 1.1em; font-weight: bold; color: #333;">
+                    目前显示：50 个蓝色帐篷
+                </div>
+
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- 下半部文字：措施與交通 -->
+    <div class="container" style="max-width: 850px;">
+        <p style="font-size: 1.15em; line-height: 1.9; color: #444; text-align: justify;"><strong>措施以及成效：</strong>去年成为垃圾及非法露营重灾区的西湾营地，今年五一假期成为渔护署重点关注区域之一。据报道称傍晚前目测大约30多个帐篷，数目较去年近100个大减三分之二，并全部均在指定营区驻扎。</p>
+        <p style="font-size: 1.15em; line-height: 1.9; color: #444; text-align: justify;">渔护署人员一见有人扎营，先上前递出宣传牌进行重点教育，教授营地使用、炉具用火、洗涤煲具及厕所使用守则，提醒尽量降低声浪及切勿破坏郊野环境，大型生火煮食将不被允许。而靠近西湾士多的非营区沙滩，去年有多达近百个扎营形成极其夸张的帐篷海，今年则被渔护署人员严防死守，但凡有人放地席或打营钉，即被告知上址为非法营区，有机会被检控或罚款，保持非营区<strong>「零营净滩」</strong>。</p>
+
+        <h4 style="color: #d9534f; font-weight: bold; margin-top: 3em;">🚐 4）交通运输压力</h4>
+        <p style="font-size: 1.15em; line-height: 1.9; color: #444;">万宜水库东坝节假日被涌入的出租车挤满，在傍晚游客离开的高峰期，基本上要等很久。</p>
+        <p style="font-size: 1.15em; line-height: 1.9; color: #444;"><strong>小巴司机：</strong>万宜水库东坝现场有渔农署的工作人员在现场引导游客上下小巴，同时也有多辆警车在现场维持秩序，警察表示他们主要在现场是防止有黑车宰客乱像的出现。</p>
+        <!-- 【插入運輸圖片】 -->
+        <div style="margin: 2em 0;">
+            <img src="photo/traffic.jpg" alt="交通運輸壓力" style="width: 100%; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.08);">
+        </div>
+    </div>
+
+</section>
+
+
+
+
+
+
+
+
+
+
+<!-- ==========================================
+     治理對標：麥理浩徑 vs 富士山 (50/50 左右對比)
+     ========================================== -->
+<section id="comparison" class="wrapper style1" style="padding: 6em 0; background-color: #fcfcfc;">
     <div class="container" style="max-width: 1200px;">
         
         <!-- 區塊頭部：引言 -->
         <header class="major" style="text-align: center; margin-bottom: 4em;">
             <h2 style="font-size: 2.2em; font-weight: bold; color: #222;">【治理對標】當麥理浩徑遇上富士山</h2>
-            <p style="font-size: 1.1em; color: #888;">全球「打卡」危機下的兩種解答</p>
-            <p style="max-width: 900px; margin: 1.5em auto 0; text-align: justify; text-align-last: center; font-size: 1.15em; line-height: 1.9; color: #444; text-transform: none; letter-spacing: normal;">
-                麥理浩徑面臨的定位衝突並非孤例。放眼全球，日本富士山、甚至遠至紐西蘭的國家級步道（如米爾福德步道），都曾在社交媒體的推波助瀾下，陷入環境破壞與管理壓力的泥淖。<br><br>
-                從紐西蘭嚴格的「山屋預約制與外國客差異化收費」，到日本富士山 2024 年開啟的「精細化管理」，全球正不約而同地告別「全面免費、自由進入」的舊時代。我們以近期實施新政的富士山為例：
+            <p style="font-size: 1.1em; color: #888;">全球「打卡」危機下的兩種解答：從「免費開放」到「精細化管理」</p>
+            <p style="max-width: 950px; margin: 1.5em auto 0; text-align: justify; text-align-last: center; font-size: 1.15em; line-height: 1.9; color: #444; text-transform: none; letter-spacing: normal;">
+                麥理浩徑面臨的定位衝突並非孤例。放眼全球，從紐西蘭實施嚴格「山屋預約制」的米爾福德步道，到日本的富士山，都曾陷入環境破壞與管理壓力的泥淖。富士山的經驗表明，當社交媒體的流量足以摧毀生態底線時，<strong>「必要的門檻」與「收費保育」或許是保護自然的最後防線</strong>，這也預示了香港郊野管理未來可能的轉型方向。
             </p>
         </header>
 
-        <!-- 三大對比點：使用 Flexbox 建立完美的三欄網格 -->
-        <div class="row" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1em; margin-bottom: 5em;">
+        <!-- 50/50 左右對比佈局 -->
+        <div style="display: flex; flex-wrap: wrap; gap: 2.5em; align-items: stretch;">
             
-            <!-- 💳 卡片 1：收費與預約 -->
-            <div style="flex: 1 1 30%; min-width: 300px; display: flex; flex-direction: column;">
-                <div style="background: #f9f9f9; border-radius: 12px; overflow: hidden; height: 100%; box-shadow: 0 8px 25px rgba(0,0,0,0.06); border: 1px solid #eaeaea; transition: transform 0.3s ease;">
-                    <!-- 你可以替換 src 為富士山或收費站的相關圖片 -->
-                    <img src="images/pic01.jpg" alt="收費與預約" style="width: 100%; height: 220px; object-fit: cover;" />
-                    <div style="padding: 2em;">
-                        <h3 style="font-size: 1.3em; font-weight: bold; color: #222; margin-bottom: 0.5em;">1. 收費與預約</h3>
-                        <h4 style="font-size: 1em; color: #d9534f; margin-bottom: 1em; font-weight: 500;">從「免費打卡」到「有償入山」</h4>
-                        <p style="font-size: 1em; line-height: 1.8; color: #555; text-align: justify; margin: 0;">
-                            為解決「彈丸登山」與擁堵問題，日方開始實施強制收費（約100港元）與每日4000人的名額限制，專款用於步道維護。這與漁護署正探討的「預約及收費制度」不謀而合，標誌著香港郊野管理可能邁向全新的可持續模式。
-                        </p>
-                    </div>
+            <!-- 🌟 左半部：日本富士山 (加入新聞圖片、圖說與環保廁所) -->
+            <div style="flex: 1 1 45%; min-width: 320px; background: #fff; border-radius: 16px; padding: 3.5em 3em; box-shadow: 0 10px 30px rgba(0,0,0,0.06); border: 1px solid #eaeaea; border-top: 6px solid #4a90e2; display: flex; flex-direction: column;">
+                <h3 style="font-size: 1.8em; font-weight: bold; color: #222; margin-bottom: 0.2em; text-align: center;">🗻 日本富士山</h3>
+                <p style="text-align: center; color: #888; font-size: 0.95em; margin-bottom: 2em;">先行者的「破局」之法</p>
+                
+                <!-- 富士山檢查手環照片 -->
+                <div style="width: 100%; margin-bottom: 1.5em;">
+                    <img src="photo/getty-fuji.webp" alt="Mount Fuji fee wristband check" style="width: 100%; border-radius: 8px; aspect-ratio: 16/10; object-fit: cover; border: 1px solid #eee;">
+                    <p style="font-size: 0.8em; color: #888; text-align: left; margin-top: 0.8em; line-height: 1.5;">
+                        A staff member checks hikers for their wristbands, the proof of the hiking fee payment, at the Yoshida Trail of Mount Fuji. (Zhang Xiaoyu/Xinhua/Getty Images)
+                    </p>
+                </div>
+                
+                <ul style="list-style: none; padding: 0; margin: 0; flex-grow: 1;">
+                    <li style="margin-bottom: 1.5em;">
+                        <h4 style="font-size: 1.15em; color: #4a90e2; font-weight: 600; margin-bottom: 0.5em;">⚠️ 面臨難題</h4>
+                        <p style="font-size: 1.05em; color: #555; line-height: 1.8; margin: 0; text-align: justify;">與麥徑相似，長期飽受過度擁擠與遊客缺乏準備的「彈丸登山」現象困擾。</p>
+                    </li>
+                    <li style="margin-bottom: 1.5em;">
+                        <h4 style="font-size: 1.15em; color: #4a90e2; font-weight: 600; margin-bottom: 0.5em;">🛂 收費與名額限制</h4>
+                        <p style="font-size: 1.05em; color: #555; line-height: 1.8; margin: 0; text-align: justify;">2024年告別免費時代，實施強制收費與每日 4000 人限制。專款直接用於步道維護與生態保育。</p>
+                    </li>
+                    <!-- 🌟 新增：環保廁所與 LNT 文化 -->
+                    <li style="margin-bottom: 0;">
+                        <h4 style="font-size: 1.15em; color: #4a90e2; font-weight: 600; margin-bottom: 0.5em;">🚻 基礎設施與環保文化</h4>
+                        <p style="font-size: 1.05em; color: #555; line-height: 1.8; margin: 0; text-align: justify;">長期深耕「Leave No Trace」文化，沿線廣泛設置<a href="https://www.fujisan-climb.jp/zh-TW/diary/623/" target="_blank" style="color: #4a90e2; text-decoration: none; border-bottom: 1px dotted #4a90e2;">環保廁所（Bio-toilets）</a>。配合使用者付費（協力金）及「自己垃圾帶走」的共識，形成高度自律的遊覽生態。</p>
+                    </li>
+                </ul>
+
+                <!-- 參考報導連結 -->
+                <div style="margin-top: 2em; padding-top: 1.5em; border-top: 1px dashed #ddd;">
+                    <p style="font-size: 0.85em; color: #888; margin-bottom: 0.5em;"><strong>延伸閱讀：</strong></p>
+                    <a href="https://edition.cnn.com/travel/japan-mount-fuji-fee-test-overtourism-intl-hnk/index.html" target="_blank" style="display: block; font-size: 0.85em; color: #4a90e2; text-decoration: none; margin-bottom: 0.3em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">▸ CNN: Japan tests new Mount Fuji hiking fee</a>
+                    <a href="https://ubrand.udn.com/ubrand/story/123647/8367981" target="_blank" style="display: block; font-size: 0.85em; color: #4a90e2; text-decoration: none; margin-bottom: 0.3em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">▸ 倡議家：富士山過度旅遊解方</a>
+                    <a href="https://ubrand.udn.com/ubrand/story/123647/8589508" target="_blank" style="display: block; font-size: 0.85em; color: #4a90e2; text-decoration: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">▸ 倡議家：入山收費與總量管制</a>
                 </div>
             </div>
 
-            <!-- 💳 卡片 2：科技管理 -->
-            <div style="flex: 1 1 30%; min-width: 300px; display: flex; flex-direction: column;">
-                <div style="background: #f9f9f9; border-radius: 12px; overflow: hidden; height: 100%; box-shadow: 0 8px 25px rgba(0,0,0,0.06); border: 1px solid #eaeaea; transition: transform 0.3s ease;">
-                    <!-- 你可以替換 src 為無人機或手機APP的相關圖片 -->
-                    <img src="images/pic02.jpg" alt="科技管理" style="width: 100%; height: 220px; object-fit: cover;" />
-                    <div style="padding: 2em;">
-                        <h3 style="font-size: 1.3em; font-weight: bold; color: #222; margin-bottom: 0.5em;">2. 科技管理</h3>
-                        <h4 style="font-size: 1em; color: #5bc0de; margin-bottom: 1em; font-weight: 500;">無人機監控與實時引導</h4>
-                        <p style="font-size: 1em; line-height: 1.8; color: #555; text-align: justify; margin: 0;">
-                            富士山利用專屬 APP 緩解擁擠並用無人機定位生態損毀區。香港漁護署亦將科技納入五一的「超前部署」，針對麥徑熱門地段首次動用具廣播功能的無人機及閉路電視，實時提醒遊客遵守「無痕山林」原則。
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 💳 卡片 3：基礎設施與垃圾 -->
-            <div style="flex: 1 1 30%; min-width: 300px; display: flex; flex-direction: column;">
-                <div style="background: #f9f9f9; border-radius: 12px; overflow: hidden; height: 100%; box-shadow: 0 8px 25px rgba(0,0,0,0.06); border: 1px solid #eaeaea; transition: transform 0.3s ease;">
-                    <!-- 你可以替換 src 為垃圾或步道設施的相關圖片 -->
-                    <img src="images/pic03.jpg" alt="基礎設施與垃圾" style="width: 100%; height: 220px; object-fit: cover;" />
-                    <div style="padding: 2em;">
-                        <h3 style="font-size: 1.3em; font-weight: bold; color: #222; margin-bottom: 0.5em;">3. 基礎設施與垃圾處理</h3>
-                        <h4 style="font-size: 1em; color: #5cb85c; margin-bottom: 1em; font-weight: 500;">「帶走」文化 vs 麥徑的「排隊」困境</h4>
-                        <p style="font-size: 1em; line-height: 1.8; color: #555; text-align: justify; margin: 0;">
-                            相較於日本在當地長期深耕的「Leave No Trace」文化與廣泛設置的環保廁所，香港的設施不足已成矛盾焦點。「女廁排長龍」成為常態，首季垃圾檢控更是飆升。這印證了引入外判營運商改善設施，並推動「自己垃圾自己帶走」的迫切性。
-                        </p>
-                    </div>
-                </div>
+            <!-- 🌟 右半部：香港麥理浩徑 -->
+            <div style="flex: 1 1 45%; min-width: 320px; background: #fff; border-radius: 16px; padding: 3.5em 3em; box-shadow: 0 10px 30px rgba(0,0,0,0.06); border: 1px solid #eaeaea; border-top: 6px solid #d9534f;">
+                <h3 style="font-size: 1.8em; font-weight: bold; color: #222; margin-bottom: 0.5em; text-align: center;">🇭🇰 香港麥理浩徑</h3>
+                <p style="text-align: center; color: #888; font-size: 0.95em; margin-bottom: 2.5em;">探索中的可持續模式</p>
+                
+                <ul style="list-style: none; padding: 0; margin: 0;">
+                    <li style="margin-bottom: 2em;">
+                        <h4 style="font-size: 1.15em; color: #d9534f; font-weight: 600; margin-bottom: 0.5em;">⚠️ 數據敲響的警鐘</h4>
+                        <p style="font-size: 1.05em; color: #555; line-height: 1.8; margin: 0; text-align: justify;">2025年全港郊野亂拋垃圾檢控大增3.4倍（共42宗），非法露營達116宗，西貢東為重災區。破壞樹木最高可罰2.5萬港元及監禁一年。</p>
+                    </li>
+                    <li style="margin-bottom: 2em;">
+                        <h4 style="font-size: 1.15em; color: #d9534f; font-weight: 600; margin-bottom: 0.5em;">🚁 現行措施：科技執法</h4>
+                        <p style="font-size: 1.05em; color: #555; line-height: 1.8; margin: 0; text-align: justify;">五一長假期間，動用具廣播功能的無人機監察破邊洲防跨欄，並以 CCTV 監控營地；復活清明期間共發出 418 次勸喻及 18 宗檢控。</p>
+                    </li>
+                    <li style="margin-bottom: 0;">
+                        <h4 style="font-size: 1.15em; color: #d9534f; font-weight: 600; margin-bottom: 0.5em;">📈 未來長遠政策與倡議</h4>
+                        <p style="font-size: 1.05em; color: #555; line-height: 1.8; margin: 0; text-align: justify;">官方正研擬<strong>預約與收費制度</strong>，並預計 2026 年中開設小紅書爭奪話語權。各界更倡議引入外判收費保育、獎勵帶走垃圾及電動車分流。</p>
+                    </li>
+                </ul>
             </div>
 
         </div>
-
-        <!-- 結語區塊：獨立的深色卡片，創造沉浸式收尾 -->
-        <div style="max-width: 900px; margin: 0 auto; padding: 3.5em 4em; background: #222; color: #fff; border-radius: 16px; box-shadow: 0 15px 40px rgba(0,0,0,0.2);">
-            <h3 style="color: #fff; font-size: 1.6em; margin-bottom: 1.2em; text-align: center; border-bottom: 1px solid #444; padding-bottom: 0.8em;">在「荒野」與「主題公園」之間</h3>
-            
-            <p style="font-size: 1.15em; line-height: 1.9; color: #e0e0e0; text-align: justify; margin-bottom: 1.5em;">
-                麥理浩徑正站在十字路口。
-            </p>
-            <p style="font-size: 1.15em; line-height: 1.9; color: #e0e0e0; text-align: justify; margin-bottom: 0;">
-                （富士山的經驗告訴我們，當社交媒體帶來的流量足以摧毀生態底線時，「必要的門檻」與「收費保育」或許是保護自然的最後防線。隨著漁護署官方小紅書帳號即將在 2026 年年中上線，香港正試圖重拾話語權，引導這股不可阻擋的遊客流量回歸「行山有道」的正軌。）
-            </p>
-        </div>
-
     </div>
 </section>
+
 
 			<!-- Four -->
 				<section id="four" class="wrapper style3 special">
@@ -627,6 +830,9 @@
             });
         });
 </script>
+
+
+<script src="assets/js/tent-visual.js"></script>
 
     </body>
 </html>
