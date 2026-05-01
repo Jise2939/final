@@ -24,21 +24,20 @@ body, h1, h2, h3, h4, h5, h6, p, a {
     height: 450px; 
     width: 100%; 
     border-radius: 4px 4px 0 0; 
-    border: 1px solid #ccc;
+    border: 1px solid #ffffff;
     z-index: 1; 
     overflow: hidden;
 }
 
 #elevation-container { 
-    height: 220px; 
+    height: 250px; 
     width: 100%; 
-    border: 1px solid #ccc; 
+    border: 1px solid #ffffff; 
     border-top: none; 
     border-radius: 0 0 4px 4px; 
     background: white; 
     position: relative;
 }
-
 
 /* 隱藏地圖上的垂直黑線 */
 #map-container svg .mouse-focus-line,
@@ -47,14 +46,11 @@ body, h1, h2, h3, h4, h5, h6, p, a {
     display: none !important; opacity: 0 !important; visibility: hidden !important;
 }
 
-/* 隱藏地圖上的數字(如419m)、里程白圈圈、標記陰影 */
-#map-container .leaflet-elevation-point-label,
-#map-container .elevation-pointer-label,
-#map-container .leaflet-tooltip-pane,
-#map-container .elevation-waypoint-marker,
-#map-container .elevation-distance-marker,
-#map-container .leaflet-marker-shadow {
-    display: none !important; opacity: 0 !important; visibility: hidden !important;
+#map-wrapper {
+    background: transparent !important; /* 背景改為透明 */
+    box-shadow: none !important;        /* 移除陰影 */
+    border: none !important;            /* 移除邊框 */
+    padding: 0 !important;              /* 移除內部的留白空間 */
 }
 
 /* 確保下方海拔圖表內的垂直指示線正常顯示 */
@@ -62,15 +58,6 @@ body, h1, h2, h3, h4, h5, h6, p, a {
     display: block !important; opacity: 1 !important; visibility: visible !important;
     stroke: #666 !important; stroke-width: 1px !important;
 }
-
-.elevation-control.leaflet-control {
-    background: transparent !important; box-shadow: none !important; border: none !important; 
-    margin: 0 !important; padding: 0 !important; width: 100% !important;
-}
-.elevation-control-container { background: transparent !important; }
-.elevation-control.elevation-toggle { display: none !important; }
-.elevation-summary { font-size: 13px; color: #ffffff; margin-top: 15px; text-align: center; }
-
 
 
 /* ==========================================
@@ -301,8 +288,8 @@ to { opacity: 1; transform: translateY(0); }
 #gallery-section {
     position: relative;
     width: 100%;
-    height: 60vh; /* 佔滿整個螢幕高度 */
-    background-color: #ffffff; /* 給畫廊一個淺色背景，讓圖片更突出 */
+    height: 50vh; /* 佔滿整個螢幕高度 */
+    background-color: #ffffff00; /* 給畫廊一個淺色背景，讓圖片更突出 */
     overflow: hidden;
 }
 

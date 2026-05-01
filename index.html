@@ -19,7 +19,7 @@
         <script src="https://unpkg.com/@raruto/leaflet-elevation/dist/leaflet-elevation.js"></script>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@200..900&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Cactus+Classical+Serif&family=Noto+Serif+TC:wght@200..900&display=swap" rel="stylesheet">
         
     </head>
     <body class="landing">
@@ -29,9 +29,7 @@
             <h1><strong><a href="index.html">Data Story</a></strong> by LMWXMY</h1>
             <nav id="nav">
                 <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="generic.html">Generic</a></li>
-                    <li><a href="elements.html">Elements</a></li>
+                    <p><a href="generic.html">English</a></p>
                 </ul>
             </nav>
         </header>
@@ -67,7 +65,7 @@
 <!-- ==========================================
      Section 1: 採訪紀實 (全寬置中排版)
      ========================================== -->
-<section id="interview" class="wrapper style1" style="padding-bottom: 5em; padding-top: 3em;">
+<section id="interview" class="wrapper style1" style="padding-bottom: 3em; padding-top: 3em;">
     
     <!-- 限制最大寬度為 900px，並讓內部文字全部置中 -->
     <div class="container" style="max-width: 900px; text-align: center;"> 
@@ -97,6 +95,7 @@
 <!-- ==========================================
      麥理浩徑介紹 + 地圖 + 3D圖片滾輪
      ========================================== -->
+
 <section id="trail-intro" class="wrapper style1">
 	 <!-- 上半部：3D 滿版環形畫廊 -->
     <!-- 直接將先前的畫廊區塊放在這個 Section 的最底層，形成完美的視覺延伸 -->
@@ -161,7 +160,7 @@
             <div class="chart-col" style="flex: 1 1 45%; min-width: 280px; max-width: 100%; box-sizing: border-box;">
     
 			<!-- 🌟 修改點 2：卡片層也加入 width: 100% 和 overflow: hidden，防止圖表溢出卡片 -->
-			<div style="background: #fff; padding: 1em; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); border: 1px solid #eaeaea; width: 100%; box-sizing: border-box; overflow: hidden;">
+			<!-- <div style="background: #fff; padding: 1em; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); border: 1px solid #eaeaea; width: 100%; box-sizing: border-box; overflow: hidden;"> -->
 				
 				<!-- 你的 Flourish 嵌入代碼 -->
 			<div class="flourish-embed flourish-chart" data-src="visualisation/28766621"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/28766621/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
@@ -349,6 +348,7 @@
 				</div>
 			</footer>
         
+
         <!-- Scripts -->
         <script src="assets/js/jquery.min.js"></script>
         <script src="assets/js/skel.min.js"></script>
@@ -400,37 +400,43 @@
                         shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
                     });
 
-                    // 關閉滾輪縮放，避免使用者往下滾動網頁時卡在地圖上
-                    map = L.map('map-container', { scrollWheelZoom: false }).setView([22.38, 114.15], 13);
+                    map = L.map('map-container', { scrollWheelZoom: false });
 
                     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                         attribution: '© OpenStreetMap contributors',
                         maxZoom: 19
                     }).addTo(map);
 
-                    const elevationOptions = {
-                        theme: "skyblue-theme",     
+
+                    // 地點 1：浪茄灣
+                    const marker2 = L.marker([22.3780, 114.3750]).addTo(map);
+                    marker2.bindPopup("<b>浪茄灣</b><br>直升機救援熱點，需翻越崎嶇山徑。");
+
+                    const elevationOptions = {   
+                        theme: 'steelblue-theme', 
                         detached: true,             
                         elevationDiv: "#elevation-container", 
                         autohide: false,            
                         position: "bottomright",
-                        imperial: false,            
+                        imperial: false,  
+                        time: false,          
+                        waypoints: false,
                         followMarker: false,        // 防止地圖亂跑
                         zoomAnimation: false,
-                        waypoints: false,           // 關閉外掛自帶的航點圈圈
                         summary: false ,
 						downloadLink: false,
                         responsive: true,
-                        polyline: {
-                            weight: 3,
-                            color: '#3366cc',       
-                            opacity: 0.8
+
+
+                        // 🌟 2. 限制圖表高度並設定邊距，防止藍色區塊往下溢出
+                        height: 250, 
+                        margins: {
+                            top: 30,
+                            right: 20,
+                            bottom: 10, // 確保底部留有空間給公里數（km）顯示
+                            left: 50
                         },
-                        marker: {
-                            // 自訂地圖上滑動的乾淨小圓點
-                            icon: L.circleMarker([0, 0], { radius: 5, color: '#fff', fillColor: '#0078FF', fillOpacity: 1, weight: 2 }),
-                            showLabel: false        // 關閉 "419m" 這種標籤數字
-                        }
+                        
                     };
 
                     const controlElevation = L.control.elevation(elevationOptions).addTo(map);
@@ -448,6 +454,7 @@
                 }
             });
         </script>
+
 		<script>
     // 偵測 Spotlight 區塊是否進入畫面，進入時觸發滑動效果
     document.addEventListener("DOMContentLoaded", function() {
