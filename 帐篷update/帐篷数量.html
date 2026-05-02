@@ -1,0 +1,316 @@
+对，老师这个建议是对的：蓝色帐篷应该先均匀占满整个营地区域，代表“合理密度”；红色帐篷再落在蓝色之间，代表密度突然变高。
+
+下面是改好的完整 HTML：蓝色 50 顶会均匀分布在整个区域，红色 400 顶会均匀填入空隙，不再集中在下方。
+
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>咸田灣營地密度變化可視化</title>
+<style>
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: #fff;
+  font-family: "Noto Serif TC", "Songti TC", "PingFang TC", serif;
+  color: #111;
+}
+.camp-section {
+  position: relative;
+  height: 320vh;
+  background: linear-gradient(180deg, #f3fbff 0%, #ffffff 100%);
+}
+.camp-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5vh 5vw;
+}
+.camp-wrap {
+  width: min(1200px, 94vw);
+}
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 14px auto 12px;
+  max-width: 760px;
+}
+.stat-card {
+  background: rgba(255,255,255,0.92);
+  border: 1px solid rgba(42,118,181,0.12);
+  border-radius: 12px;
+  padding: 8px 12px;
+  text-align: center;
+  box-shadow: 0 8px 18px rgba(40,90,130,0.06);
+}
+.stat-card .label {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 6px;
+}
+.stat-card .value {
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1;
+}
+.blue .value { color: #1e88e5; }
+.red .value { color: #d33a2c; }
+.camp-board {
+  position: relative;
+  width: 100%;
+  height: min(55vh, 560px);
+  border-radius: 28px;
+  background:
+    linear-gradient(180deg, rgba(232,245,255,0.75), rgba(255,255,255,0.96)),
+    radial-gradient(circle at 50% 10%, rgba(30,136,229,0.14), transparent 42%);
+  border: 1px solid rgba(42,118,181,0.16);
+  box-shadow: 0 22px 60px rgba(40,90,130,0.12);
+  overflow: hidden;
+}
+.capacity-label {
+  position: absolute;
+  left: 28px;
+  top: 24px;
+  z-index: 80;
+  padding: 8px 12px;
+  background: rgba(255,255,255,0.92);
+  border: 1px solid rgba(30,136,229,0.24);
+  border-radius: 999px;
+  font-size: 13px;
+  color: #276fae;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+}
+.tent-field {
+  position: absolute;
+  inset: 58px 32px 28px;
+}
+.tent {
+  position: absolute;
+  width: 42px;
+  height: 32px;
+  object-fit: contain;
+  opacity: 0;
+  transform: translateY(-90px) scale(0.72) rotate(var(--rot));
+  transition:
+    opacity .35s ease,
+    transform .45s cubic-bezier(.2,.85,.2,1);
+  filter: drop-shadow(0 5px 7px rgba(0,0,0,0.13));
+}
+.tent.show {
+  opacity: 1;
+  transform: translateY(0) scale(var(--scale)) rotate(var(--rot));
+}
+.tent.blue { z-index: 40; }
+.tent.red { z-index: 20; }
+.progress-text {
+  text-align: center;
+  margin-top: 18px;
+  min-height: 34px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #333;
+}
+.progress-text span { color: #d33a2c; }
+.progress-bar {
+  width: min(760px,82vw);
+  height: 6px;
+  background: #e9eef4;
+  border-radius: 99px;
+  overflow: hidden;
+  margin: 14px auto 0;
+}
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg,#1e88e5,#d33a2c);
+}
+.scroll-hint {
+  text-align: center;
+  margin-top: 8px;
+  font-size: 13px;
+  color: #888;
+}
+@media(max-width:768px) {
+  .stats-row {
+    grid-template-columns: 1fr;
+  }
+  .camp-board {
+    height: 50vh;
+  }
+  .tent {
+    width: 28px;
+    height: 22px;
+  }
+  .capacity-label {
+    top: 18px;
+    font-size: 12px;
+  }
+  .tent-field {
+    inset: 54px 20px 24px;
+  }
+  .progress-text {
+    font-size: 15px;
+  }
+}
+</style>
+</head>
+<body>
+<section class="camp-section" id="campSection">
+  <div class="camp-sticky">
+    <div class="camp-wrap">
+      <div class="stats-row">
+        <div class="stat-card blue">
+          <div class="label">官方建議容量</div>
+          <div class="value">50</div>
+        </div>
+        <div class="stat-card red">
+          <div class="label">額外湧入帳篷</div>
+          <div class="value" id="redCount">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">目前可視化總數</div>
+          <div class="value" id="totalCount">50</div>
+        </div>
+      </div>
+      <div class="camp-board">
+        <div class="capacity-label">藍色＝官方建議容量；紅色＝額外湧入帳篷</div>
+        <div class="tent-field" id="tentField"></div>
+      </div>
+      <div class="progress-text" id="progressText">
+        官方建議容量下，50個營位可較平均分布在營地內。
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <div class="scroll-hint">向下滾動，查看帳篷密度如何逐步增加</div>
+    </div>
+  </div>
+</section>
+<script>
+const BLUE_SRC = "蓝色帐篷.png";
+const RED_SRC = "红色帐篷.png";
+const BLUE_TOTAL = 50;
+const RED_TOTAL = 400;
+const section = document.getElementById("campSection");
+const field = document.getElementById("tentField");
+const redCountEl = document.getElementById("redCount");
+const totalCountEl = document.getElementById("totalCount");
+const progressText = document.getElementById("progressText");
+const progressFill = document.getElementById("progressFill");
+const blueTents = [];
+const redTents = [];
+function seededRandom(seed) {
+  const x = Math.sin(seed) * 10000;
+  return x - Math.floor(x);
+}
+function createTent(type) {
+  const img = document.createElement("img");
+  img.src = type === "blue" ? BLUE_SRC : RED_SRC;
+  img.className = "tent " + type;
+  img.alt = type === "blue" ? "藍色帳篷" : "紅色帳篷";
+  field.appendChild(img);
+  return img;
+}
+function createAllTents() {
+  field.innerHTML = "";
+  blueTents.length = 0;
+  redTents.length = 0;
+  for (let i = 0; i < BLUE_TOTAL; i++) {
+    blueTents.push(createTent("blue"));
+  }
+  for (let i = 0; i < RED_TOTAL; i++) {
+    redTents.push(createTent("red"));
+  }
+  layoutTents();
+}
+function layoutTents() {
+  const w = field.clientWidth;
+  const h = field.clientHeight;
+  const tentW = window.innerWidth <= 768 ? 28 : 42;
+  const tentH = window.innerWidth <= 768 ? 22 : 32;
+  /*
+    蓝色帐篷：50顶均匀分布在整个区域。
+    这是“官方建议容量”下的低密度状态。
+  */
+  const blueCols = 10;
+  const blueRows = 5;
+  const blueGapX = w / blueCols;
+  const blueGapY = h / blueRows;
+  blueTents.forEach((tent, i) => {
+    const row = Math.floor(i / blueCols);
+    const col = i % blueCols;
+    const jitterX = (seededRandom(i * 3.11) - 0.5) * blueGapX * 0.18;
+    const jitterY = (seededRandom(i * 5.23) - 0.5) * blueGapY * 0.18;
+    const left = col * blueGapX + blueGapX / 2 - tentW / 2 + jitterX;
+    const top = row * blueGapY + blueGapY / 2 - tentH / 2 + jitterY;
+    tent.style.left = `${Math.max(0, Math.min(left, w - tentW))}px`;
+    tent.style.top = `${Math.max(0, Math.min(top, h - tentH))}px`;
+    tent.style.setProperty("--rot", "0deg");
+    tent.style.setProperty("--scale", "1");
+    tent.style.zIndex = 40;
+    tent.classList.add("show");
+  });
+  /*
+    红色帐篷：400顶均匀落在整个区域。
+    逻辑不是“堆在某一角”，而是填入蓝色帐篷之间，
+    呈现整体密度增加。
+  */
+  const redCols = 25;
+  const redRows = Math.ceil(RED_TOTAL / redCols);
+  const redGapX = w / redCols;
+  const redGapY = h / redRows;
+  redTents.forEach((tent, i) => {
+    const row = Math.floor(i / redCols);
+    const col = i % redCols;
+    const jitterX = (seededRandom(i * 7.17) - 0.5) * redGapX * 0.45;
+    const jitterY = (seededRandom(i * 9.41) - 0.5) * redGapY * 0.45;
+    let left = col * redGapX + redGapX / 2 - tentW / 2 + jitterX;
+    let top = row * redGapY + redGapY / 2 - tentH / 2 + jitterY;
+    left = Math.max(0, Math.min(left, w - tentW));
+    top = Math.max(0, Math.min(top, h - tentH));
+    const rot = (seededRandom(i * 11.9) - 0.5) * 16;
+    const scale = 0.82 + seededRandom(i * 6.4) * 0.18;
+    tent.style.left = `${left}px`;
+    tent.style.top = `${top}px`;
+    tent.style.setProperty("--rot", `${rot}deg`);
+    tent.style.setProperty("--scale", scale.toFixed(2));
+    tent.style.zIndex = 8 + Math.floor(seededRandom(i * 13.8) * 22);
+  });
+}
+function updateVisual() {
+  const rect = section.getBoundingClientRect();
+  const totalScrollable = rect.height - window.innerHeight;
+  const scrolled = Math.min(Math.max(-rect.top, 0), totalScrollable);
+  const progress = totalScrollable > 0 ? scrolled / totalScrollable : 0;
+  const visibleRed = Math.floor(progress * RED_TOTAL);
+  const visibleTotal = BLUE_TOTAL + visibleRed;
+  redTents.forEach((tent, i) => {
+    tent.classList.toggle("show", i < visibleRed);
+  });
+  redCountEl.textContent = visibleRed;
+  totalCountEl.textContent = visibleTotal;
+  progressFill.style.width = `${progress * 100}%`;
+  if (progress < 0.18) {
+    progressText.innerHTML = "官方建議容量下，50個營位可較平均分布在營地內。";
+  } else if (progress < 0.75) {
+    progressText.innerHTML = `紅色帳篷逐步填入空隙，營地密度正在上升：<span>${visibleRed}</span> 個額外帳篷`;
+  } else {
+    progressText.innerHTML = `最終狀態：50個建議營位 + <span>400</span> 個額外帳篷，帳篷間距大幅縮小。`;
+  }
+}
+window.addEventListener("scroll", updateVisual);
+window.addEventListener("resize", () => {
+  layoutTents();
+  updateVisual();
+});
+createAllTents();
+updateVisual();
+</script>
+</body>
+</html>

@@ -1,26 +1,26 @@
-// assets/js/tent-visual.js
-
-document.addEventListener("DOMContentLoaded", () => {
-    // 🌟 請確保這兩張圖片已經放在您的 photo 資料夾中
+document.addEventListener("DOMContentLoaded", function() {
+    
+    // ====== 參數設定 (請根據實際路徑微調) ======
     const BLUE_SRC = "photo/蓝色帐篷.png"; 
     const RED_SRC = "photo/红色帐篷.png";
-
     const BLUE_TOTAL = 50;
     const RED_TOTAL = 400;
 
+    // ====== 取得 DOM 元素 ======
     const section = document.getElementById("campSection");
     const field = document.getElementById("tentField");
-    if(!section || !field) return;
-
     const redCountEl = document.getElementById("redCount");
     const totalCountEl = document.getElementById("totalCount");
     const progressText = document.getElementById("progressText");
     const progressFill = document.getElementById("progressFill");
 
+    // 如果頁面上沒有這個區塊，就直接退出程式，避免報錯
+    if (!section || !field) return;
+
     const blueTents = [];
     const redTents = [];
-    let blueBoxes = [];
 
+    // ====== 核心功能 ======
     function seededRandom(seed) {
         const x = Math.sin(seed) * 10000;
         return x - Math.floor(x);
@@ -30,129 +30,108 @@ document.addEventListener("DOMContentLoaded", () => {
         const img = document.createElement("img");
         img.src = type === "blue" ? BLUE_SRC : RED_SRC;
         img.className = "tent " + type;
+        img.alt = type === "blue" ? "藍色帳篷" : "紅色帳篷";
         field.appendChild(img);
         return img;
     }
 
-    function boxesOverlap(a, b) {
-        const padding = 6;
-        return !(a.x + a.w - padding < b.x || a.x + padding > b.x + b.w || a.y + a.h - padding < b.y || a.y + padding > b.y + b.h);
+    function createAllTents() {
+        field.innerHTML = "";
+        blueTents.length = 0;
+        redTents.length = 0;
+        for (let i = 0; i < BLUE_TOTAL; i++) blueTents.push(createTent("blue"));
+        for (let i = 0; i < RED_TOTAL; i++) redTents.push(createTent("red"));
+        layoutTents();
     }
 
     function layoutTents() {
-        if(!field.clientWidth) return;
         const w = field.clientWidth;
         const h = field.clientHeight;
-        const tentW = 38, tentH = 28;
-        blueBoxes = [];
+        const tentW = window.innerWidth <= 768 ? 28 : 42;
+        const tentH = window.innerWidth <= 768 ? 22 : 32;
 
+        // 藍色帳篷佈局
+        const blueCols = 10;
+        const blueRows = 5;
+        const blueGapX = w / blueCols;
+        const blueGapY = h / blueRows;
+        
         blueTents.forEach((tent, i) => {
-            const row = Math.floor(i / 10);
-            const col = i % 10;
-            const left = w * 0.1 + col * (w/12);
-            const top = 15 + row * 40;
-            tent.style.left = `${left}px`;
-            tent.style.top = `${top}px`;
+            const row = Math.floor(i / blueCols);
+            const col = i % blueCols;
+            const jitterX = (seededRandom(i * 3.11) - 0.5) * blueGapX * 0.18;
+            const jitterY = (seededRandom(i * 5.23) - 0.5) * blueGapY * 0.18;
+            const left = col * blueGapX + blueGapX / 2 - tentW / 2 + jitterX;
+            const top = row * blueGapY + blueGapY / 2 - tentH / 2 + jitterY;
+            
+            tent.style.left = `${Math.max(0, Math.min(left, w - tentW))}px`;
+            tent.style.top = `${Math.max(0, Math.min(top, h - tentH))}px`;
             tent.style.setProperty("--rot", "0deg");
             tent.style.setProperty("--scale", "1");
+            tent.style.zIndex = 40;
             tent.classList.add("show");
-            blueBoxes.push({ x: left, y: top, w: tentW, h: tentH });
         });
 
-        let placed = 0;
-        for (let i = 0; i < RED_TOTAL; i++) {
-            const tent = redTents[i];
-            let left, top, safe = false, tries = 0;
-            while (!safe && tries < 60) {
-                left = seededRandom(i * 13 + tries) * (w - tentW);
-                top = seededRandom(i * 21 + tries) * (h - tentH);
-                safe = !blueBoxes.some(b => boxesOverlap({x: left, y: top, w: tentW, h: tentH}, b));
-                tries++;
-            }
-            if(!safe) top = Math.min(h - tentH, top + 40);
+        // 紅色帳篷佈局
+        const redCols = 25;
+        const redRows = Math.ceil(RED_TOTAL / redCols);
+        const redGapX = w / redCols;
+        const redGapY = h / redRows;
+        
+        redTents.forEach((tent, i) => {
+            const row = Math.floor(i / redCols);
+            const col = i % redCols;
+            const jitterX = (seededRandom(i * 7.17) - 0.5) * redGapX * 0.45;
+            const jitterY = (seededRandom(i * 9.41) - 0.5) * redGapY * 0.45;
+            let left = col * redGapX + redGapX / 2 - tentW / 2 + jitterX;
+            let top = row * redGapY + redGapY / 2 - tentH / 2 + jitterY;
+            
+            left = Math.max(0, Math.min(left, w - tentW));
+            top = Math.max(0, Math.min(top, h - tentH));
+            const rot = (seededRandom(i * 11.9) - 0.5) * 16;
+            const scale = 0.82 + seededRandom(i * 6.4) * 0.18;
+            
             tent.style.left = `${left}px`;
             tent.style.top = `${top}px`;
-            tent.style.setProperty("--rot", `${(seededRandom(i) - 0.5) * 20}deg`);
-            tent.style.setProperty("--scale", (0.8 + seededRandom(i*6)*0.2).toFixed(2));
-            tent.style.zIndex = Math.floor(seededRandom(i*13)*20);
-        }
+            tent.style.setProperty("--rot", `${rot}deg`);
+            tent.style.setProperty("--scale", scale.toFixed(2));
+            tent.style.zIndex = 8 + Math.floor(seededRandom(i * 13.8) * 22);
+        });
     }
 
-    for (let i = 0; i < BLUE_TOTAL; i++) blueTents.push(createTent("blue"));
-    for (let i = 0; i < RED_TOTAL; i++) redTents.push(createTent("red"));
-    
-    setTimeout(layoutTents, 100);
-
-    window.addEventListener("scroll", () => {
+    function updateVisual() {
         const rect = section.getBoundingClientRect();
         const totalScrollable = rect.height - window.innerHeight;
         const scrolled = Math.min(Math.max(-rect.top, 0), totalScrollable);
         const progress = totalScrollable > 0 ? scrolled / totalScrollable : 0;
-
+        
         const visibleRed = Math.floor(progress * RED_TOTAL);
-        redTents.forEach((tent, i) => tent.classList.toggle("show", i < visibleRed));
+        const visibleTotal = BLUE_TOTAL + visibleRed;
+        
+        redTents.forEach((tent, i) => {
+            tent.classList.toggle("show", i < visibleRed);
+        });
         
         redCountEl.textContent = visibleRed;
-        totalCountEl.textContent = BLUE_TOTAL + visibleRed;
+        totalCountEl.textContent = visibleTotal;
         progressFill.style.width = `${progress * 100}%`;
-
-        if (progress < 0.1) {
-            progressText.innerHTML = "目前显示：50 个蓝色帐篷";
-        } else if (progress < 0.95) {
-            progressText.innerHTML = `红色帐篷正在涌入：<span style="color:#d33a2c;">${visibleRed}</span> 个额外帐篷`;
+        
+        if (progress < 0.18) {
+            progressText.innerHTML = "官方建議容量下，50個營位可較平均分布在營地內。";
+        } else if (progress < 0.75) {
+            progressText.innerHTML = `紅色帳篷逐步填入空隙，營地密度正在上升：<span>${visibleRed}</span> 個額外帳篷`;
         } else {
-            progressText.innerHTML = `最终状态：50 个蓝色帐篷 + <span style="color:#d33a2c;">400</span> 个红色帐篷`;
+            progressText.innerHTML = `最終狀態：50個建議營位 + <span>400</span> 個額外帳篷，帳篷間距大幅縮小。`;
         }
-    }, { passive: true });
-
-    window.addEventListener("resize", layoutTents);
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-    const container = document.getElementById('youtube-player-container');
-    const poster = document.getElementById('video-poster');
-    const iframe = document.getElementById('youtube-iframe');
-
-    if (container && poster && iframe) {
-        container.addEventListener('click', () => {
-            // 隱藏封面圖層
-            poster.style.display = 'none';
-            // 顯示並加載 YouTube 影片
-            iframe.style.display = 'block';
-        });
     }
-});
 
-var player;
-// 1. 這個函數必須叫這個名字，API 載入後會自動執行
-function onYouTubeIframeAPIReady() {
-    player = new YT.Player('player', {
-        height: '100%',
-        width: '100%',
-        videoId: 'NZRBftmY7_k', // YouTube 影片 ID
-        playerVars: {
-            'autoplay': 0,      // 初始不自動播放
-            'controls': 1,      // 顯示控制條
-            'rel': 0,           // 結尾不顯示推薦影片
-            'enablejsapi': 1
-        },
-        events: {
-            'onReady': onPlayerReady
-        }
+    // ====== 初始化與事件監聽 ======
+    createAllTents();
+    updateVisual();
+    
+    window.addEventListener("scroll", updateVisual);
+    window.addEventListener("resize", () => {
+        layoutTents();
+        updateVisual();
     });
-}
-
-function onPlayerReady(event) {
-    const container = document.getElementById('youtube-player-container');
-    const poster = document.getElementById('video-poster');
-
-    if (container && poster) {
-        container.addEventListener('click', () => {
-            // 隱藏封面
-            poster.style.display = 'none';
-            // 指令：靜音並播放（靜音是為了確保 100% 成功播放，之後用戶可手動開聲）
-            // 如果你堅持要大聲播放，就拿掉 mute()，但在部分瀏覽器可能會失敗
-            player.playVideo();
-        });
-    }
-}
+});
