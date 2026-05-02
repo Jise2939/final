@@ -118,3 +118,36 @@ document.addEventListener("DOMContentLoaded", function() {
     document.querySelectorAll('.spotlight').forEach(el => observer.observe(el));
 
 });
+
+// ====== youtube-player.js ======
+
+var player;
+
+// 當 YouTube API 準備好時，會自動呼叫這個函數
+function onYouTubeIframeAPIReady() {
+    player = new YT.Player('player', {
+        // ⚠️ 注意：請把下方的 ID 換成你真實的 YouTube 影片 ID！
+        // 例如網址是 https://www.youtube.com/watch?v=dQw4w9WgXcQ，ID 就是 dQw4w9WgXcQ
+        videoId: 'NZRBftmY7_k', 
+        playerVars: {
+            'playsinline': 1,
+            'rel': 0, // 播放結束不顯示無關推薦
+            'controls': 1
+        },
+        events: {
+            'onReady': onPlayerReady
+        }
+    });
+}
+
+function onPlayerReady(event) {
+    var poster = document.getElementById('video-poster');
+    
+    // 點擊封面圖時，隱藏封面並播放影片
+    if (poster) {
+        poster.addEventListener('click', function() {
+            poster.style.display = 'none';
+            player.playVideo();
+        });
+    }
+}
