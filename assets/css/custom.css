@@ -320,7 +320,7 @@ to { opacity: 1; transform: translateY(0); }
 #section-divider::before {
     content: '';
     position: absolute;
-    bottom: 60px;             /* 靠下對齊 */
+    bottom: 10px;             /* 靠下對齊 */
     left: -5vw;            
     width: 45vw;           
     height: 600px;
@@ -335,7 +335,7 @@ to { opacity: 1; transform: translateY(0); }
 #section-divider::after {
     content: '';
     position: absolute;
-    top: -110px;            /* 稍微往上提一點，製造不對稱感 */
+    top: -80px;            /* 稍微往上提一點，製造不對稱感 */
     right: -2vw;          
     width: 42vw;           
     height: 600px;
