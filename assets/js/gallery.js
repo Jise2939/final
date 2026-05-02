@@ -237,10 +237,10 @@ class Media {
       }
     }
     this.scale = this.screen.height / 1500;
-    this.plane.scale.y = (this.viewport.height * (900 * this.scale)) / this.screen.height;
-    this.plane.scale.x = (this.viewport.width * (700 * this.scale)) / this.screen.width;
+    this.plane.scale.y = (this.viewport.height * (1390 * this.scale)) / this.screen.height;
+    this.plane.scale.x = (this.viewport.width * (720 * this.scale)) / this.screen.width;
     this.plane.program.uniforms.uPlaneSizes.value = [this.plane.scale.x, this.plane.scale.y];
-    this.padding = 2;
+    this.padding = 1;
     this.width = this.plane.scale.x + this.padding;
     this.widthTotal = this.width * this.length;
     this.x = this.width * this.index;
@@ -249,7 +249,7 @@ class Media {
 
 // 4. App 核心啟動類別
 class App {
-  constructor(container, { items, bend, textColor = '#ffffff', borderRadius = 0, font = 'bold 30px sans-serif', scrollSpeed = 2, scrollEase = 0.05 } = {}) {
+  constructor(container, { items, bend, textColor = '#ffffff', borderRadius = 0, font = 'bold 30px sans-serif', scrollSpeed = 1.25, scrollEase = 0.05 } = {}) {
     this.container = container;
     this.scrollSpeed = scrollSpeed;
     this.scroll = { ease: scrollEase, current: 0, target: 0, last: 0 };
@@ -283,12 +283,17 @@ class App {
   createMedias(items, bend = 1, textColor, borderRadius, font) {
     // 🌟 在這裡換成你自己的圖片路徑和文字！
     const galleryItems = items || [
-      { image: `photo/heck.jpg`, text: '擁擠的水庫' },
-      { image: `images/pic01.jpg`, text: '郊野風光' },
-      { image: `images/pic02.jpg`, text: '打卡熱點' },
-      { image: `images/pic03.jpg`, text: '自然生態' },
-      { image: `images/pic04.jpg`, text: '百年步道' },
-      { image: `images/pic05.jpg`, text: '無痕山林' }
+      { image: `posts/IMG_3416.jpg`, text: '擁擠的水庫' },
+      { image: `posts/IMG_3417.jpg`, text: '郊野風光' },
+      { image: `posts/IMG_3418.jpg`, text: '打卡熱點' },
+      { image: `posts/IMG_3419.jpg`, text: '自然生態' },
+      { image: `posts/IMG_3420.jpg`, text: '百年步道' },
+      { image: `posts/IMG_3421.jpg`, text: '擁擠的水庫' },
+      { image: `posts/IMG_3422.jpg`, text: '擁擠的水庫' },
+      { image: `posts/IMG_3423.jpg`, text: '擁擠的水庫' },
+      { image: `posts/IMG_3424.jpg`, text: '擁擠的水庫' },
+      { image: `posts/IMG_3425.jpg`, text: '擁擠的水庫' },
+      { image: `posts/IMG_3426.jpg`, text: '無痕山林' }
     ];
     this.mediasImages = galleryItems.concat(galleryItems);
     this.medias = this.mediasImages.map((data, index) => {
@@ -371,7 +376,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const container = document.getElementById('circular-gallery');
     if (container) {
         new App(container, {
-            bend: 3,                 // 彎曲弧度
+            bend: 0,                 // 彎曲弧度
             textColor: '#ffffff',    // 字體顏色
             borderRadius: 0.05,      // 圖片圓角
             font: 'bold 30px "PingFang TC", sans-serif', // 中文字體
@@ -381,3 +386,4 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
+

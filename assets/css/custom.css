@@ -303,142 +303,6 @@ to { opacity: 1; transform: translateY(0); }
 
 
 /* ==========================================
-   左右分欄佈局 (卡片與照片牆)
-   ========================================== */
-.split-layout {
-    display: flex;
-    align-items: flex-start;
-    width: 100%;
-    gap: 4em; 
-    padding-top: 2em;
-}
-
-/* 左側文字區：寬度 55% */
-.left-content {
-    flex: 0 0 55%; 
-    width: 55%;
-    z-index: 2; 
-}
-
-/* 右側照片牆區：寬度 45%，並固定在畫面上 */
-.right-sticky {
-    flex: 0 0 calc(45% - 4em);
-    width: calc(45% - 4em);
-    position: sticky;
-    top: 15vh;
-    height: 75vh;
-}
-
-/* ==========================================
-   卡片堆疊區
-   ========================================== */
-
-#scroll-stack-container {
-    position: relative;
-    min-height: 100vh; 
-}
-
-/* 2. 卡片基礎設定 */
-.scroll-stack-card {
-    position: -webkit-sticky; 
-    position: sticky; 
-    transform-origin: top center;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-    width: 100%;
-    margin-bottom: 50vh; 
-    padding: 1.5em 3em 3em 3em;
-    border-radius: 20px;
-    box-sizing: border-box;
-    border: 1px solid #eaeaea;
-    background: #fff;
-    transition: opacity 0.3s ease;
-}
-
-.scroll-stack-card:nth-child(1) { 
-    top: 15vh; 
-    z-index: 10; 
-}
-.scroll-stack-card:nth-child(2) { 
-    top: calc(15vh + 75px); 
-    z-index: 20; 
-}
-.scroll-stack-card:nth-child(3) { 
-    top: calc(15vh + 150px); 
-    z-index: 30; 
-}
-.scroll-stack-card:nth-child(4) { 
-    top: calc(15vh + 225px); 
-    z-index: 40; 
-}
-
-/* 4. 底部緩衝區：確保最後一張卡片鎖住後，還有空間看右邊的照片牆 */
-.scroll-stack-end {
-    width: 100%;
-    height: 50vh; 
-}
-
-/* ==========================================
-   瀑布流照片牆樣式 (右側 - 移植自 Masonry 框架)
-   ========================================== */
-.list {
-    position: relative;
-    width: 100%;
-    /* 淡出淡入動畫 */
-    transition: opacity 0.8s ease, height 0.8s ease;
-}
-
-.list.fade-out {
-    opacity: 0 !important;
-}
-
-/* 圖片包裝層：絕對定位，用 transform 移動[cite: 4] */
-.item-wrapper {
-    position: absolute;
-    will-change: transform, opacity;
-    padding: 6px; /* 圖片之間的間距 */
-    top: 0;
-    left: 0;
-    /* 給予絲滑的位移動畫[cite: 4] */
-    transition: transform 1.2s cubic-bezier(0.23, 1, 0.32, 1), opacity 1.2s ease;
-}
-
-/* 實際圖片層[cite: 4] */
-.item-wrapper > .item-img {
-    position: relative;
-    background-size: cover;
-    background-position: center center;
-    width: 100%;
-    height: 100%;
-    border-radius: 10px;
-    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
-    background-color: #f5f5f5; /* 載入前的底色 */
-}
-
-/* ==========================================
-   手機版適配 (單欄顯示)
-   ========================================== */
-@media (max-width: 900px) {
-    .split-layout { 
-        flex-direction: column; 
-        gap: 2em; 
-    }
-    .left-content, .right-sticky { 
-        flex: 1 1 100%; 
-        width: 100%; 
-    }
-    .scroll-stack-card {
-        margin-bottom: 2em;
-        position: relative; /* 手機版不堆疊，正常排版 */
-        top: 0 !important;
-    }
-    .right-sticky { 
-        position: relative; /* 手機版不固定 */
-        top: 0; 
-        height: auto;
-    }
-}
-
-/* ==========================================
    兩段之間的中間過渡裝飾區塊
    ========================================== */
 #section-divider {
@@ -456,7 +320,7 @@ to { opacity: 1; transform: translateY(0); }
 #section-divider::before {
     content: '';
     position: absolute;
-    bottom: 120px;             /* 靠下對齊 */
+    bottom: 60px;             /* 靠下對齊 */
     left: -5vw;            
     width: 45vw;           
     height: 600px;
@@ -471,11 +335,11 @@ to { opacity: 1; transform: translateY(0); }
 #section-divider::after {
     content: '';
     position: absolute;
-    top: -120px;            /* 稍微往上提一點，製造不對稱感 */
-    right: -9vw;          
-    width: 48vw;           
-    height: 650px;
-    max-width: 750px;      
+    top: -110px;            /* 稍微往上提一點，製造不對稱感 */
+    right: -2vw;          
+    width: 42vw;           
+    height: 600px;
+    max-width: 600px;      
     background: url('../../photo/2475.PNG') no-repeat top right; /* 貼齊右上 */
     background-size: contain;
     z-index: -1;           /* 沉到最底層 */
@@ -555,7 +419,7 @@ to { opacity: 1; transform: translateY(0); }
 /* 文本框樣式 */
 .dam-text-box {
     position: absolute;
-    max-width: 460px;
+    max-width: 800px;
     padding: 26px 28px;
     background: #f3f3f3;
     border-radius: 22px;
